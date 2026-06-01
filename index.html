@@ -497,7 +497,7 @@
       color: #fff; margin-bottom: 1rem; letter-spacing: 0.08em;
     }
     .plan-name   { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .plan-price  { font-size: 2.2rem; font-weight: 800; line-height: 1; color: var(--frost); margin-bottom: 0.2rem; }
+    .plan-price  { font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 800; line-height: 1; color: var(--frost); margin-bottom: 0.35rem; letter-spacing: 0; }
     .plan-price-before { font-size: 0.875rem; color: var(--muted); text-decoration: line-through; margin-bottom: 1rem; }
     .plan-features { margin: 1.25rem 0; display: flex; flex-direction: column; gap: 0.6rem; }
     .plan-feature {
@@ -507,6 +507,25 @@
     .plan-feature i { color: var(--success); font-size: 0.8rem; flex-shrink: 0; }
     .plan-feature.missing { opacity: 0.4; }
     .plan-feature.missing i { color: var(--muted); }
+    .plan-kicker {
+      color: var(--cyan); font-family: var(--font-code); font-size: 0.72rem;
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.65rem;
+    }
+    .plan-description {
+      color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 1rem;
+    }
+    .plan-includes-label, .plan-excludes-label {
+      font-size: 0.72rem; color: var(--frost); font-family: var(--font-code);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-top: 1.1rem;
+    }
+    .plan-excludes {
+      display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.75rem 0 1.25rem;
+    }
+    .plan-excludes span {
+      color: rgba(203,213,225,0.72); background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 999px;
+      padding: 0.22rem 0.55rem; font-size: 0.72rem;
+    }
 
     /* Promotional pricing elements */
     .plan-promo-badge {
@@ -1029,94 +1048,92 @@
       <div class="container">
         <div class="section-header">
           <span class="section-eyebrow">Inversión</span>
-          <h2 id="planes-title">Planes para verte <span class="text-gradient">premium</span> y vender mejor</h2>
-          <p>Paquetes claros para lanzar, mejorar o escalar tu presencia digital con diseño, estrategia, automatización y contacto directo.</p>
+          <h2 id="planes-title">Planes de lanzamiento para negocios que quieren verse profesionales, captar clientes por WhatsApp y empezar rápido.</h2>
         </div>
         <div class="promo-announcement" role="note" aria-label="Promoción de lanzamiento">
-          <strong>Diagnóstico inicial disponible esta semana</strong>
-          <span class="promo-sep">·</span> Cupos limitados para proyectos nuevos
-          <span class="promo-sep">·</span> Respuesta directa por WhatsApp
+          <strong>Precios especiales para los primeros proyectos.</strong>
+          <span class="promo-sep">·</span> Cupos limitados este mes.
         </div>
         <div class="pricing-grid">
-          <!-- Landing Page -->
-          <div class="glass-card glow-card pricing-card reveal" aria-label="Plan Landing Page">
-            <div class="plan-promo-badge"><i class="fas fa-tag" aria-hidden="true"></i> 25% OFF</div>
-            <div class="plan-name">Landing Page</div>
-            <div class="plan-price">$850 <small style="font-size:1rem;color:var(--muted)">MXN</small></div>
-            <div class="plan-price-before">antes $1,150 MXN</div>
-            <div class="plan-promo-label"><i class="fas fa-clock" aria-hidden="true"></i> Tarifa vigente este mes</div>
-            <ul class="plan-features" aria-label="Características">
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Primera pantalla lista para convertir</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Copy de venta y estructura premium</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> SEO local base y carga rápida</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> WhatsApp con mensaje prellenado</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Ideal para validar oferta en 3-5 días</li>
-              <li class="plan-feature missing"><i class="fas fa-times" aria-hidden="true"></i> Blog / CMS</li>
-              <li class="plan-feature missing"><i class="fas fa-times" aria-hidden="true"></i> Sistema de agendado</li>
+          <!-- Plan Start -->
+          <div class="glass-card glow-card pricing-card reveal" aria-label="Plan Start">
+            <div class="plan-promo-badge"><i class="fas fa-tag" aria-hidden="true"></i> Lanzamiento</div>
+            <div class="plan-name">Plan Start</div>
+            <div class="plan-kicker">Para empezar rápido</div>
+            <div class="plan-price">$1,499 <small style="font-size:1rem;color:var(--muted)">MXN</small></div>
+            <p class="plan-description">Para negocios que solo quieren verse profesionales y recibir mensajes por WhatsApp.</p>
+            <div class="plan-includes-label">Incluye</div>
+            <ul class="plan-features" aria-label="Incluye">
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Landing básica de una sola página</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Diseño responsive para celular, tablet y computadora</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> 4 secciones: inicio, servicios, beneficios y contacto</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Botón de WhatsApp con mensaje prellenado</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Links a redes: Instagram, Facebook, LinkedIn o TikTok</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> SEO básico: título, descripción y estructura</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> 1 ronda de cambios pequeños</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Entrega en 2-4 días</li>
             </ul>
-            <button class="btn btn-outline w-full" data-plan="Landing Page">
-              <i class="fas fa-arrow-right" aria-hidden="true"></i> Seleccionar
-            </button>
-          </div>
-
-          <!-- Web Negocio FEATURED -->
-          <div class="glass-card glow-card pricing-card featured reveal" style="transition-delay:.1s" aria-label="Plan Web Negocio, el más vendido">
-            <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem">
-              <span class="featured-badge" style="margin-bottom:0">⭐ Más Vendido</span>
-              <span class="plan-promo-badge" style="margin-bottom:0"><i class="fas fa-tag" aria-hidden="true"></i> 25% OFF</span>
+            <div class="plan-excludes-label">No incluye</div>
+            <div class="plan-excludes" aria-label="No incluye">
+              <span>Logo</span><span>Dominio</span><span>Hosting</span><span>Tienda online</span><span>Sistema de citas</span><span>Copy avanzado</span><span>Muchas animaciones</span>
             </div>
-            <div class="plan-name">Web Negocio</div>
-            <div class="plan-price">$1,990 <small style="font-size:1rem;color:var(--muted)">MXN</small></div>
-            <div class="plan-price-before">antes $2,650 MXN</div>
-            <div class="plan-promo-label"><i class="fas fa-hourglass-half" aria-hidden="true"></i> Cupos limitados este mes</div>
-            <ul class="plan-features" aria-label="Características">
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Sitio completo para servicios, clínica, local o marca</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Secciones de confianza, oferta y prueba social</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> SEO técnico y estructura para Google</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> WhatsApp, formularios y tracking de leads</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Analytics para medir visitas y consultas</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Entrega estimada 7-12 días</li>
-              <li class="plan-feature missing"><i class="fas fa-times" aria-hidden="true"></i> Sistema a medida</li>
-            </ul>
-            <button class="btn btn-primary w-full" data-plan="Web Negocio">
-              <i class="fas fa-rocket" aria-hidden="true"></i> Quiero este plan
+            <button class="btn btn-outline w-full" data-plan="Plan Start">
+              <i class="fas fa-arrow-right" aria-hidden="true"></i> Quiero el Plan Start
             </button>
           </div>
 
-          <!-- Sistema Pro -->
-          <div class="glass-card glow-card pricing-card reveal" style="transition-delay:.2s" aria-label="Plan Sistema Pro">
-            <div class="plan-promo-badge"><i class="fas fa-tag" aria-hidden="true"></i> 25% OFF</div>
-            <div class="plan-name">Sistema Pro</div>
-            <div class="plan-price">$3,950 <small style="font-size:1rem;color:var(--muted)">MXN</small></div>
-            <div class="plan-price-before">antes $5,250 MXN</div>
-            <div class="plan-promo-label"><i class="fas fa-clock" aria-hidden="true"></i> Oferta de Lanzamiento</div>
-            <ul class="plan-features" aria-label="Características">
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Sistema a medida para vender u operar mejor</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Reservas, citas, pagos o panel administrativo</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Automatización de tareas repetitivas</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Integraciones con herramientas de tu negocio</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Base escalable y soporte inicial</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Entrega estimada 15-25 días</li>
+          <!-- Plan Negocio FEATURED -->
+          <div class="glass-card glow-card pricing-card featured reveal" style="transition-delay:.1s" aria-label="Plan Negocio, el más vendido">
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem">
+              <span class="featured-badge" style="margin-bottom:0">Más vendido</span>
+              <span class="plan-promo-badge" style="margin-bottom:0"><i class="fas fa-tag" aria-hidden="true"></i> Lanzamiento</span>
+            </div>
+            <div class="plan-name">Plan Negocio</div>
+            <div class="plan-kicker">Más vendido</div>
+            <div class="plan-price">$2,999 <small style="font-size:1rem;color:var(--muted)">MXN</small></div>
+            <p class="plan-description">La opción ideal para negocios que quieren verse más profesionales y empezar a recibir clientes por WhatsApp.</p>
+            <div class="plan-includes-label">Incluye</div>
+            <ul class="plan-features" aria-label="Incluye">
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Landing premium más visual y más vendedora</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> 6-8 secciones: inicio, problema, solución, servicios, beneficios, planes, testimonios y contacto</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> WhatsApp inteligente con mensaje según servicio o plan</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Formulario/selector con tipo de negocio + plan de interés</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Copy orientado a venta</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Botones premium de redes sociales</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> SEO local básico</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Animaciones suaves: glow, cards y microinteracciones</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> 2 rondas de cambios controladas</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Entrega en 5-7 días</li>
             </ul>
-            <button class="btn btn-outline w-full" data-plan="Sistema Pro">
-              <i class="fas fa-arrow-right" aria-hidden="true"></i> Comenzar
+            <button class="btn btn-primary w-full" data-plan="Plan Negocio">
+              <i class="fas fa-rocket" aria-hidden="true"></i> Quiero el Plan Negocio
             </button>
           </div>
 
-          <!-- Personalizado -->
-          <div class="glass-card glow-card pricing-card reveal" style="transition-delay:.3s" aria-label="Plan Personalizado">
-            <div class="plan-name">Personalizado</div>
-            <div class="plan-price" style="font-size:1.5rem">A la Medida</div>
-            <div class="plan-price-before">Cotización sin compromiso</div>
-            <ul class="plan-features" aria-label="Características">
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Arquitectura pensada para tu operación real</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Integraciones, automatizaciones e IA según caso</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Estrategia de marca, contenido y adquisición</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Roadmap por fases para no improvisar</li>
-              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Ideal para e-commerce, academias o servicios complejos</li>
+          <!-- Plan Pro -->
+          <div class="glass-card glow-card pricing-card reveal" style="transition-delay:.2s" aria-label="Plan Pro">
+            <div class="plan-promo-badge"><i class="fas fa-tag" aria-hidden="true"></i> Mejor valor</div>
+            <div class="plan-name">Plan Pro</div>
+            <div class="plan-kicker">Sistema digital completo</div>
+            <div class="plan-price">$5,999 <small style="font-size:1rem;color:var(--muted)">MXN</small></div>
+            <p class="plan-description">Para negocios que quieren una presencia digital seria, elegante y lista para captar clientes.</p>
+            <div class="plan-includes-label">Incluye</div>
+            <ul class="plan-features" aria-label="Incluye">
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Web premium completa: landing o web multipágina simple</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Hasta 5 páginas/secciones grandes: inicio, servicios, nosotros, galería/catálogo y contacto</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> WhatsApp por servicio con mensajes personalizados</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Formulario avanzado: plan, negocio, necesidad y contacto</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Catálogo simple de servicios, menú, productos o paquetes</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Google Maps con ubicación del negocio</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Analytics básico para medir visitas</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> SEO mejorado: estructura, metadatos y rendimiento</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Animaciones premium sin afectar velocidad</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> 3 rondas de cambios razonables</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Soporte 15 días después de entrega</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Entrega en 7-12 días</li>
             </ul>
-            <button class="btn btn-violet w-full" data-plan="Personalizado">
-              <i class="fas fa-envelope" aria-hidden="true"></i> Cotizar
+            <button class="btn btn-violet w-full" data-plan="Plan Pro">
+              <i class="fas fa-layer-group" aria-hidden="true"></i> Quiero el Plan Pro
             </button>
           </div>
         </div>
@@ -1151,13 +1168,12 @@
             <div class="konexia-plan">
               <div class="k-plan-header">
                 <div>
-                  <div class="k-plan-promo-tag">25% OFF</div>
+                  <div class="k-plan-promo-tag">Diagnóstico</div>
                   <div class="k-plan-name">Plan Inicial</div>
                 </div>
                 <div class="k-plan-price-wrap">
-                  <div class="k-plan-price-old">$675/mes</div>
-                  <div class="k-plan-price">$499</div>
-                  <div class="k-plan-period">/mes MXN</div>
+                  <div class="k-plan-price" style="font-size:1rem">Cotización por WhatsApp</div>
+                  <div class="k-plan-period">según alcance</div>
                 </div>
               </div>
               <ul class="k-features">
@@ -1170,15 +1186,14 @@
             </div>
             <div class="konexia-plan featured">
               <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem">
-                <span class="featured-badge" style="background:linear-gradient(135deg,var(--violet),var(--indigo));margin-bottom:0">⭐ Más Popular</span>
-                <span class="k-plan-promo-tag" style="padding:.2rem .65rem;border-radius:100px">25% OFF</span>
+                <span class="featured-badge" style="background:linear-gradient(135deg,var(--violet),var(--indigo));margin-bottom:0">Más popular</span>
+                <span class="k-plan-promo-tag" style="padding:.2rem .65rem;border-radius:100px">Marketing</span>
               </div>
               <div class="k-plan-header">
                 <div class="k-plan-name">Plan Crecimiento</div>
                 <div class="k-plan-price-wrap">
-                  <div class="k-plan-price-old">$1,900/mes</div>
-                  <div class="k-plan-price">$1,425</div>
-                  <div class="k-plan-period">/mes MXN</div>
+                  <div class="k-plan-price" style="font-size:1rem">Cotización por WhatsApp</div>
+                  <div class="k-plan-period">según alcance</div>
                 </div>
               </div>
               <ul class="k-features">
@@ -1212,7 +1227,7 @@
               <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
             </button>
             <div id="faq-answer-1" class="faq-answer" hidden role="region" aria-labelledby="faq-btn-1">
-              <p>Landing Pages: 3-5 días hábiles. Web Negocio: 7-12 días. Sistema Pro: 15-25 días. Los tiempos dependen de la complejidad y la rapidez con que nos entregues los materiales.</p>
+              <p>Plan Start: 2-4 días hábiles. Plan Negocio: 5-7 días. Plan Pro: 7-12 días. Los tiempos dependen de la complejidad y la rapidez con que nos entregues los materiales.</p>
             </div>
           </div>
           <div class="faq-item" role="listitem">
@@ -1353,9 +1368,9 @@
                   <label for="plan">Plan de interés</label>
                   <select id="plan" name="plan" class="form-input" required>
                     <option value="" disabled selected>Selecciona un plan</option>
-                    <option value="Landing Page">Landing Page</option>
-                    <option value="Web Negocio">Web Negocio</option>
-                    <option value="Sistema Pro">Sistema Pro</option>
+                    <option value="Plan Start">Plan Start</option>
+                    <option value="Plan Negocio">Plan Negocio</option>
+                    <option value="Plan Pro">Plan Pro</option>
                     <option value="Marketing Konexia">Marketing Konexia</option>
                     <option value="Branding + Contenido">Branding + Contenido</option>
                     <option value="No sé quiero diagnóstico">No sé quiero diagnóstico</option>
@@ -1474,7 +1489,7 @@
     function buildWhatsAppLink(plan, businessType, extraMessage) {
       var safePlan = (plan || 'Diagnóstico inicial').trim();
       var safeType = (businessType || 'No especificado').trim();
-      var baseMessage = 'Hola Daniel, vi tu página de DaniCodex/Konexia y quiero información sobre el plan ' + safePlan + '. Mi negocio es: ' + safeType + '.';
+      var baseMessage = 'Hola Daniel, vi tu página de DaniCodex/Konexia y quiero información sobre el ' + safePlan + '. Mi negocio es: ' + safeType + '.';
       var fullMessage = extraMessage ? baseMessage + '\n' + String(extraMessage).trim() : baseMessage;
       return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(fullMessage);
     }
@@ -1520,7 +1535,8 @@
       if (!btn) return;
       e.preventDefault();
       var planValue = btn.getAttribute('data-plan') || btn.getAttribute('data-whatsapp-plan') || 'Diagnóstico inicial';
-      var businessType = btn.getAttribute('data-business-type') || 'No especificado';
+      var businessTypeSelect = document.getElementById('businessType');
+      var businessType = btn.getAttribute('data-business-type') || (businessTypeSelect && businessTypeSelect.value) || 'No especificado';
       var extraMessage = btn.getAttribute('data-extra-message') || '';
       setPlan(planValue, false);
       openWhatsApp(buildWhatsAppLink(planValue, businessType, extraMessage));
@@ -1885,7 +1901,7 @@
         ? 'Hemos escaneado la estructura de tu sitio y detectamos oportunidades críticas de mejora: velocidad de carga, optimización mobile y claridad en las llamadas a la acción. El 68 % de los visitantes abandona un sitio si no carga en menos de 3 segundos o no comunica su propuesta de valor de inmediato.'
         : 'Tu negocio "' + safeQuery + '" tiene un alto potencial digital sin explotar. Los negocios en tu sector que invierten en presencia web profesional reportan entre 2× y 5× más consultas por mes. La clave: diseño de alta conversión, SEO local bien ejecutado y contacto directo vía WhatsApp.';
       var arquitectura = 'Una web efectiva para tu caso necesita: (1) carga en menos de 2.5 s — cada segundo extra reduce conversiones un 7 %; (2) diseño mobile-first, donde llega más del 75 % del tráfico en México; (3) hero claro con propuesta de valor en 5 palabras; (4) botón de WhatsApp para contacto inmediato; (5) SEO local con Google Business optimizado; (6) prueba social con reseñas y casos de éxito para generar confianza.';
-      var plan = 'Agenda una sesión de diagnóstico gratuita de 30 minutos para analizar tu situación real. Elaboramos una propuesta personalizada con arquitectura, tiempos y presupuesto exacto. Desarrollo de 3 a 25 días según el plan elegido. Incluye soporte post-entrega y hasta 3 rondas de revisiones sin costo adicional. Aprovecha la oferta de lanzamiento con 25 % OFF vigente este mes — cupos limitados.';
+      var plan = 'Agenda una sesión de diagnóstico inicial para analizar tu situación real. Elaboramos una propuesta personalizada con arquitectura, tiempos y presupuesto exacto según el plan elegido: Start, Negocio, Pro, Marketing Konexia o Branding + Contenido. Los cupos de lanzamiento son limitados este mes.';
       return { analisis: analisis, arquitectura: arquitectura, plan: plan };
     }
 
@@ -1938,6 +1954,18 @@
       var planSelect = document.getElementById('plan');
       if (!planSelect) return;
       var match = Array.from(planSelect.options).find(function (o) { return o.value === planValue; });
+      if (!match && planValue === 'Landing Page') {
+        planValue = 'Plan Start';
+        match = Array.from(planSelect.options).find(function (o) { return o.value === planValue; });
+      }
+      if (!match && planValue === 'Web Negocio') {
+        planValue = 'Plan Negocio';
+        match = Array.from(planSelect.options).find(function (o) { return o.value === planValue; });
+      }
+      if (!match && planValue === 'Sistema Pro') {
+        planValue = 'Plan Pro';
+        match = Array.from(planSelect.options).find(function (o) { return o.value === planValue; });
+      }
       if (!match && /^Konexia/.test(planValue || '')) {
         planValue = 'Marketing Konexia';
         match = Array.from(planSelect.options).find(function (o) { return o.value === planValue; });
