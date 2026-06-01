@@ -479,11 +479,12 @@
        PRICING
     ============================================= */
     #planes { background: var(--navy); }
+    #planes .reveal { opacity: 1 !important; transform: none !important; }
     .pricing-grid {
       display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
       gap: 1.25rem; margin-top: 3rem; align-items: start;
     }
-    .pricing-card { padding: 2rem; transition: var(--transition); }
+    .pricing-card { padding: 2rem; transition: var(--transition); opacity: 1; transform: none; }
     .pricing-card.featured {
       border-color: rgba(56,189,248,0.3);
       background: rgba(56,189,248,0.05);
@@ -532,7 +533,7 @@
       display: inline-flex; align-items: center; gap: 0.35rem;
       font-family: var(--font-code); font-size: 0.65rem;
       padding: 0.25rem 0.7rem; border-radius: 100px;
-      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
       color: #fff; margin-bottom: 0.5rem; letter-spacing: 0.05em; font-weight: 700;
     }
     .plan-promo-label {
@@ -549,6 +550,22 @@
     }
     .promo-announcement strong { color: #e0f7ff; font-weight: 700; }
     .promo-sep { opacity: 0.4; }
+    .extras-section { margin-top: 2rem; }
+    .extras-header { max-width: 780px; margin-bottom: 1.25rem; }
+    .extras-header h3 { font-size: clamp(1.35rem, 2.6vw, 2rem); margin-bottom: 0.5rem; }
+    .extras-header p { color: var(--muted); font-size: 0.95rem; line-height: 1.75; }
+    .extras-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .extra-card {
+      padding: 1.25rem; border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.045); border: 1px solid var(--card-border);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+    }
+    .extra-card h4 { font-size: 0.98rem; margin-bottom: 0.45rem; }
+    .extra-price { color: var(--cyan); font-weight: 800; margin-bottom: 0.45rem; }
+    .extra-card p { color: var(--muted); font-size: 0.84rem; line-height: 1.65; }
     /* Konexia promo price layout */
     .k-plan-price-wrap { text-align: right; }
     .k-plan-price-old { font-size: 0.78rem; color: var(--muted); text-decoration: line-through; }
@@ -1137,6 +1154,40 @@
             </button>
           </div>
         </div>
+        <div class="extras-section reveal" aria-labelledby="extras-title">
+          <div class="extras-header">
+            <span class="section-eyebrow">Extras</span>
+            <h3 id="extras-title">Extras profesionales</h3>
+            <p>Todos los planes incluyen publicación en un link funcional. Dominio propio, hosting premium y correo empresarial se cotizan aparte.</p>
+          </div>
+          <div class="extras-grid">
+            <article class="extra-card">
+              <h4>Dominio propio</h4>
+              <div class="extra-price">$999-$1,499 MXN + costo del dominio</div>
+              <p>Incluye búsqueda, compra guiada, DNS y HTTPS.</p>
+            </article>
+            <article class="extra-card">
+              <h4>Hosting estático premium</h4>
+              <div class="extra-price">$699-$1,200 MXN</div>
+              <p>GitHub Pages, Cloudflare o Vercel con configuración.</p>
+            </article>
+            <article class="extra-card">
+              <h4>Dominio + hosting + configuración</h4>
+              <div class="extra-price">$1,999 MXN primer año</div>
+              <p>Incluye dominio básico, SSL, publicación y pruebas.</p>
+            </article>
+            <article class="extra-card">
+              <h4>Mantenimiento anual básico</h4>
+              <div class="extra-price">$999-$1,499 MXN/año</div>
+              <p>Revisión ligera, ajustes menores y soporte base anual.</p>
+            </article>
+            <article class="extra-card">
+              <h4>Correo empresarial</h4>
+              <div class="extra-price">Cotización aparte</div>
+              <p>Ejemplo: <a href="mailto:contacto@negocio.com">contacto@negocio.com</a>.</p>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1373,6 +1424,7 @@
                     <option value="Plan Pro">Plan Pro</option>
                     <option value="Marketing Konexia">Marketing Konexia</option>
                     <option value="Branding + Contenido">Branding + Contenido</option>
+                    <option value="Dominio/Hosting">Dominio/Hosting</option>
                     <option value="No sé quiero diagnóstico">No sé quiero diagnóstico</option>
                   </select>
                 </div>
@@ -2036,6 +2088,7 @@ Vi tu página y quiero saber cómo DaniCodex/Konexia puede ayudarme.`;
         }
 
         gsap.utils.toArray('.glass-card').forEach(function (card, i) {
+          if (card.closest('#planes')) return;
           gsap.from(card, {
             scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' },
             y: 30, opacity: 0, duration: 0.7, delay: (i % 4) * 0.08, ease: 'power2.out'
