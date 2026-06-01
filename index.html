@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DaniCodex + Konexia Marketing | Web, Marketing, IA y Automatización</title>
+  <meta name="description" content="Diseño web premium, marketing digital y automatización con IA para negocios que quieren verse mejor, captar más leads y vender con presencia digital profesional.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- FontAwesome – load async to avoid render-blocking -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230B1220'/%3E%3Ctext x='50' y='67' font-size='58' text-anchor='middle' fill='%2338BDF8' font-family='Poppins,Arial' font-weight='800'%3ED%3C/text%3E%3C/svg%3E">
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <style>
+    /* =============================================
+       CUSTOM PROPERTIES
+    ============================================= */
+    :root {
+      --navy:        #020617;
+      --midnight:    #0B1220;
+      --slate:       #0F172A;
+      --cyan:        #38BDF8;
+      --indigo:      #6366F1;
+      --violet:      #8B5CF6;
+      --frost:       #E2E8F0;
+      --muted:       #94A3B8;
+      --success:     #10B981;
+      --whatsapp:    #25D366;
+      --cyan-glow:   rgba(56,189,248,0.35);
+      --indigo-glow: rgba(99,102,241,0.35);
+      --violet-glow: rgba(139,92,246,0.35);
+      --card-bg:     rgba(255,255,255,0.055);
+      --card-border: rgba(255,255,255,0.1);
+      --font-head:   'Poppins', sans-serif;
+      --font-code:   'Fira Code', monospace;
+      --radius-sm:   8px;
+      --radius-md:   14px;
+      --radius-lg:   20px;
+      --transition:  0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-head);
+      background: var(--navy);
+      color: var(--frost);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.028;
+      pointer-events: none;
+      z-index: 9998;
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: var(--cyan); text-decoration: none; }
+    button { cursor: pointer; font-family: inherit; }
+    ul { list-style: none; }
+    :focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 4px; }
+
+    .skip-link {
+      position: absolute; top: -9999px; left: 1rem;
+      background: var(--cyan); color: var(--navy);
+      padding: 0.5rem 1rem; border-radius: var(--radius-sm);
+      font-weight: 700; z-index: 99999;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* =============================================
+       SCROLL PROGRESS BAR
+    ============================================= */
+    #scrollProgress {
+      position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--cyan), var(--indigo), var(--violet));
+      z-index: 9999; transition: width 0.05s linear;
+      box-shadow: 0 0 8px var(--cyan-glow);
+    }
+
+    /* =============================================
+       TYPOGRAPHY
+    ============================================= */
+    h1,h2,h3,h4,h5 { font-family: var(--font-head); line-height: 1.2; font-weight: 700; }
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+    h2 { font-size: clamp(1.6rem, 3.5vw, 2.6rem); }
+    h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
+    .label-code {
+      font-family: var(--font-code);
+      font-size: 0.75rem;
+      color: var(--cyan);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-code); font-size: 0.75rem;
+      color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section-eyebrow::before, .section-eyebrow::after {
+      content: ''; flex: 1; height: 1px; min-width: 24px;
+      background: linear-gradient(90deg, transparent, var(--cyan));
+    }
+    .section-eyebrow::after { background: linear-gradient(90deg, var(--cyan), transparent); }
+    .text-gradient {
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--indigo) 50%, var(--violet) 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .text-cyan { color: var(--cyan); }
+    .text-muted { color: var(--muted); }
+    .text-frost { color: var(--frost); }
+
+    /* =============================================
+       LAYOUT
+    ============================================= */
+    .container { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 1.25rem; }
+    section { padding: 5rem 0; }
+
+    /* =============================================
+       BUTTONS
+    ============================================= */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.75rem; border-radius: var(--radius-md);
+      font-weight: 600; font-size: 0.95rem;
+      border: none; transition: var(--transition);
+      position: relative; overflow: hidden;
+      text-align: center; justify-content: center;
+    }
+    .btn::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0.08); opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .btn:hover::after { opacity: 1; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--cyan), var(--indigo));
+      color: #fff;
+      box-shadow: 0 4px 20px var(--cyan-glow);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--cyan-glow); }
+    .btn-outline {
+      background: transparent; color: var(--frost);
+      border: 1px solid var(--card-border);
+    }
+    .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+    .btn-violet {
+      background: linear-gradient(135deg, var(--violet), var(--indigo));
+      color: #fff; box-shadow: 0 4px 20px var(--violet-glow);
+    }
+    .btn-violet:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--violet-glow); }
+    .btn-whatsapp {
+      background: var(--whatsapp); color: #fff;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+    }
+    .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(37,211,102,0.4); }
+    .btn-sm  { padding: 0.55rem 1.2rem;  font-size: 0.85rem; }
+    .btn-lg  { padding: 1rem 2.25rem;    font-size: 1.05rem; }
+
+    /* =============================================
+       GLASS CARDS
+    ============================================= */
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      position: relative; overflow: hidden;
+      transition: var(--transition);
+    }
+    .glass-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(56,189,248,0.4), transparent);
+    }
+    .glass-card:hover {
+      border-color: rgba(56,189,248,0.2);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(56,189,248,0.06);
+      transform: translateY(-4px);
+    }
+
+    /* Mouse-tracking glow */
+    .glow-card { --mouse-x: 50%; --mouse-y: 50%; }
+    .glow-card::after {
+      content: ''; position: absolute; inset: 0; border-radius: inherit;
+      background: radial-gradient(200px circle at var(--mouse-x) var(--mouse-y), rgba(56,189,248,0.08), transparent 70%);
+      pointer-events: none; opacity: 0; transition: opacity var(--transition);
+    }
+    .glow-card:hover::after { opacity: 1; }
+
+    /* =============================================
+       NAVBAR
+    ============================================= */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1rem 0;
+      background: rgba(2,6,23,0.6);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid transparent;
+      transition: background var(--transition), border-color var(--transition),
+                  box-shadow var(--transition), padding var(--transition);
+    }
+    #navbar.scrolled {
+      background: rgba(2,6,23,0.92);
+      border-bottom-color: var(--card-border);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+      padding: 0.65rem 0;
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-weight: 800; font-size: 1.25rem;
+      color: var(--frost); letter-spacing: -0.02em;
+    }
+    .nav-logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--cyan), var(--indigo));
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.05rem; font-weight: 800; color: #fff;
+    }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+    .nav-links a {
+      color: var(--muted); font-size: 0.875rem; font-weight: 500;
+      padding: 0.4rem 0.75rem; border-radius: var(--radius-sm);
+      transition: color var(--transition), background var(--transition);
+    }
+    .nav-links a:hover { color: var(--frost); background: rgba(255,255,255,0.06); }
+    .nav-cta { margin-left: 0.5rem; }
+
+    .hamburger {
+      display: none; flex-direction: column; justify-content: center;
+      align-items: center; gap: 5px; width: 40px; height: 40px;
+      background: none; border: none; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--frost); border-radius: 2px;
+      transition: var(--transition); transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+    .nav-mobile-menu {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(2,6,23,0.98); backdrop-filter: blur(20px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 2rem; opacity: 0; pointer-events: none;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .nav-mobile-menu.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .nav-mobile-menu a {
+      color: var(--frost); font-size: 1.6rem; font-weight: 700;
+      padding: 0.5rem 1.5rem; border-radius: var(--radius-md);
+      transition: color var(--transition);
+    }
+    .nav-mobile-menu a:hover { color: var(--cyan); }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-cta-desktop { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* =============================================
+       HERO
+    ============================================= */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      position: relative; overflow: hidden; padding-top: 80px;
+      background:
+        radial-gradient(circle at 18% 24%, rgba(56,189,248,0.16), transparent 28%),
+        radial-gradient(circle at 78% 18%, rgba(139,92,246,0.18), transparent 30%),
+        radial-gradient(circle at 56% 82%, rgba(99,102,241,0.14), transparent 36%),
+        linear-gradient(135deg, #01030c 0%, #050816 46%, #0b1020 100%);
+    }
+    #heroCanvas { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; }
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 1;
+      background-image:
+        linear-gradient(rgba(56,189,248,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139,92,246,0.045) 1px, transparent 1px),
+        linear-gradient(115deg, transparent 0 48%, rgba(56,189,248,0.035) 49% 50%, transparent 51% 100%);
+      background-size: 64px 64px, 64px 64px, 140px 140px;
+      mask-image: radial-gradient(ellipse 92% 76% at 50% 42%, black 0%, transparent 88%);
+    }
+    .hero-radial {
+      position: absolute; inset: 0; z-index: 2;
+      background:
+        linear-gradient(90deg, rgba(2,6,23,0.88) 0%, rgba(2,6,23,0.42) 44%, rgba(2,6,23,0.66) 100%),
+        radial-gradient(ellipse 74% 58% at 54% 28%, rgba(56,189,248,0.12) 0%, transparent 72%);
+    }
+    .hero-content { position: relative; z-index: 3; max-width: 900px; padding: 3rem 0 2rem; }
+    .hero-badge-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .hero-badge {
+      font-family: var(--font-code); font-size: 0.7rem;
+      padding: 0.34rem 0.78rem; border-radius: 100px;
+      background: rgba(8,18,38,0.56); border: 1px solid rgba(56,189,248,0.26);
+      color: #c7f3ff; letter-spacing: 0.06em;
+      box-shadow: inset 0 1px rgba(255,255,255,0.08), 0 0 22px rgba(56,189,248,0.08);
+    }
+    .hero-title { margin-bottom: 1rem; font-weight: 800; letter-spacing: 0; max-width: 860px; }
+    .hero-typewriter {
+      display: block; color: var(--cyan); min-height: 1.25em;
+      font-size: clamp(1.5rem, 3.5vw, 2.8rem);
+    }
+    .typewriter-cursor {
+      display: inline-block; width: 3px; height: 1em;
+      background: var(--cyan); margin-left: 2px;
+      vertical-align: text-bottom; animation: blink 0.8s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .hero-subtitle {
+      font-size: clamp(1rem, 1.5vw, 1.18rem); color: #cbd5e1;
+      margin-bottom: 2rem; max-width: 720px; line-height: 1.8;
+    }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .hero-trust {
+      display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.4rem 0 0;
+      color: var(--muted); font-size: 0.85rem;
+    }
+    .hero-trust span {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.5rem 0.75rem; border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.08);
+    }
+    .hero-social-actions, .footer-action-row {
+      display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem;
+    }
+    .social-link-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.62rem 0.95rem; border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+      color: var(--frost); font-size: 0.86rem; font-weight: 600;
+      transition: var(--transition);
+    }
+    .social-link-btn:hover { border-color: rgba(56,189,248,0.5); color: var(--cyan); transform: translateY(-2px); }
+    .hero-scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      color: var(--muted); font-size: 0.75rem;
+      animation: float 2s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-6px)} }
+
+    /* =============================================
+       KPI STRIP
+    ============================================= */
+    #kpi {
+      padding: 3rem 0;
+      background: var(--midnight);
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .kpi-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; }
+    @media (max-width:700px) { .kpi-grid { grid-template-columns: repeat(2,1fr); } }
+    .kpi-item { text-align: center; padding: 1.5rem 1rem; position: relative; }
+    .kpi-item + .kpi-item::before {
+      content: ''; position: absolute; left: 0; top: 20%; bottom: 20%;
+      width: 1px; background: var(--card-border);
+    }
+    @media (max-width:700px) {
+      .kpi-item:nth-child(2)::before { display: block; }
+      .kpi-item:nth-child(3)::before { display: none; }
+    }
+    .kpi-number {
+      font-size: clamp(2rem,5vw,3rem); font-weight: 800;
+      background: linear-gradient(135deg, var(--cyan), var(--indigo));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; line-height: 1.1;
+    }
+    .kpi-label  { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+    .kpi-source { font-family: var(--font-code); font-size: 0.65rem; color: var(--indigo); margin-top: 0.25rem; }
+
+    /* =============================================
+       CASOS DE EXITO
+    ============================================= */
+    #casos { background: var(--navy); }
+    .casos-grid {
+      display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .tilt-card { padding: 2rem; transform-style: preserve-3d; will-change: transform; }
+    .case-tag {
+      display: inline-block; font-family: var(--font-code); font-size: 0.65rem;
+      padding: 0.2rem 0.6rem; border-radius: 100px;
+      background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.2);
+      color: var(--cyan); margin-bottom: 1rem;
+    }
+    .case-metric {
+      font-size: 2.5rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--cyan), var(--indigo));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; line-height: 1;
+    }
+    .case-metric-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; }
+    .case-title { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .case-desc  { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+    .case-icon {
+      width: 42px; height: 42px; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; margin-bottom: 1rem;
+    }
+    .icon-cyan    { background: rgba(56,189,248,0.15);  color: var(--cyan);    }
+    .icon-indigo  { background: rgba(99,102,241,0.15);  color: var(--indigo);  }
+    .icon-violet  { background: rgba(139,92,246,0.15);  color: var(--violet);  }
+    .icon-success { background: rgba(16,185,129,0.15);  color: var(--success); }
+
+    /* =============================================
+       PROCESO
+    ============================================= */
+    #proceso { background: var(--midnight); }
+    .process-steps {
+      position: relative; margin-top: 3rem;
+      display: grid; grid-template-columns: repeat(5,1fr); gap: 1rem;
+    }
+    .process-line {
+      position: absolute; top: 28px;
+      left: calc(10% + 1rem); right: calc(10% + 1rem);
+      height: 2px; background: var(--card-border); z-index: 0;
+    }
+    .process-line-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--cyan), var(--indigo), var(--violet));
+      box-shadow: 0 0 10px var(--cyan-glow);
+      transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    .process-step {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      padding: 0 0.5rem;
+    }
+    .step-circle {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--midnight); border: 2px solid var(--card-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; margin-bottom: 1rem; position: relative;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .step-circle.active { border-color: var(--cyan); box-shadow: 0 0 20px var(--cyan-glow); }
+    .step-num {
+      position: absolute; top: -6px; right: -6px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--indigo); font-size: 0.65rem;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: #fff;
+    }
+    .step-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .step-desc  { font-size: 0.75rem; color: var(--muted); }
+    @media (max-width:768px) {
+      .process-steps { grid-template-columns: 1fr; gap: 0; }
+      .process-line  { display: none; }
+      .process-step  {
+        flex-direction: row; align-items: flex-start; text-align: left;
+        gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--card-border);
+      }
+      .step-circle { flex-shrink: 0; margin-bottom: 0; }
+    }
+
+    /* =============================================
+       PRICING
+    ============================================= */
+    #planes { background: var(--navy); }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 1.25rem; margin-top: 3rem; align-items: start;
+    }
+    .pricing-card { padding: 2rem; transition: var(--transition); }
+    .pricing-card.featured {
+      border-color: rgba(56,189,248,0.3);
+      background: rgba(56,189,248,0.05);
+      transform: scale(1.03);
+      box-shadow: 0 0 60px rgba(56,189,248,0.1);
+    }
+    .featured-badge {
+      display: inline-block; font-family: var(--font-code); font-size: 0.65rem;
+      padding: 0.2rem 0.65rem; border-radius: 100px;
+      background: linear-gradient(135deg, var(--cyan), var(--indigo));
+      color: #fff; margin-bottom: 1rem; letter-spacing: 0.08em;
+    }
+    .plan-name   { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .plan-price  { font-size: 2.2rem; font-weight: 800; line-height: 1; color: var(--frost); margin-bottom: 0.2rem; }
+    .plan-price-before { font-size: 0.875rem; color: var(--muted); text-decoration: line-through; margin-bottom: 1rem; }
+    .plan-features { margin: 1.25rem 0; display: flex; flex-direction: column; gap: 0.6rem; }
+    .plan-feature {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.875rem; color: var(--muted);
+    }
+    .plan-feature i { color: var(--success); font-size: 0.8rem; flex-shrink: 0; }
+    .plan-feature.missing { opacity: 0.4; }
+    .plan-feature.missing i { color: var(--muted); }
+
+    /* Promotional pricing elements */
+    .plan-promo-badge {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-family: var(--font-code); font-size: 0.65rem;
+      padding: 0.25rem 0.7rem; border-radius: 100px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff; margin-bottom: 0.5rem; letter-spacing: 0.05em; font-weight: 700;
+    }
+    .plan-promo-label {
+      font-size: 0.72rem; color: var(--success); font-weight: 600;
+      margin-bottom: 0.8rem; font-family: var(--font-code);
+      display: flex; align-items: center; gap: 0.35rem;
+    }
+    .promo-announcement {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: 0.5rem 1rem; padding: 0.9rem 1.5rem;
+      background: linear-gradient(135deg, rgba(56,189,248,0.08), rgba(139,92,246,0.09));
+      border: 1px solid rgba(56,189,248,0.22); border-radius: var(--radius-md);
+      font-size: 0.82rem; color: var(--muted); margin-bottom: 2.5rem; text-align: center;
+    }
+    .promo-announcement strong { color: #e0f7ff; font-weight: 700; }
+    .promo-sep { opacity: 0.4; }
+    /* Konexia promo price layout */
+    .k-plan-price-wrap { text-align: right; }
+    .k-plan-price-old { font-size: 0.78rem; color: var(--muted); text-decoration: line-through; }
+    .k-plan-promo-tag {
+      display: inline-block; font-size: 0.6rem; font-family: var(--font-code);
+      padding: 0.18rem 0.55rem; border-radius: 100px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444); color: #fff; font-weight: 700;
+    }
+
+    /* =============================================
+       KONEXIA
+    ============================================= */
+    #konexia {
+      background: linear-gradient(135deg, rgba(11,18,32,1) 0%, rgba(30,10,60,0.8) 100%);
+      border-top: 1px solid rgba(139,92,246,0.15);
+      border-bottom: 1px solid rgba(139,92,246,0.15);
+      position: relative; overflow: hidden;
+    }
+    #konexia::before {
+      content: ''; position: absolute; top: -50%; right: -20%;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .konexia-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    @media (max-width:768px) { .konexia-grid { grid-template-columns: 1fr; gap: 2rem; } }
+    .konexia-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-code); font-size: 0.7rem;
+      padding: 0.3rem 0.8rem; border-radius: 100px;
+      background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.3);
+      color: var(--violet); margin-bottom: 1rem;
+    }
+    .konexia-plans { display: flex; flex-direction: column; gap: 1rem; }
+    .konexia-plan {
+      padding: 1.5rem; border-radius: var(--radius-md);
+      background: rgba(139,92,246,0.05); border: 1px solid rgba(139,92,246,0.15);
+      transition: var(--transition);
+    }
+    .konexia-plan.featured {
+      border-color: rgba(139,92,246,0.4); background: rgba(139,92,246,0.1);
+      box-shadow: 0 0 30px rgba(139,92,246,0.1);
+    }
+    .konexia-plan:hover { border-color: rgba(139,92,246,0.35); }
+    .k-plan-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+    .k-plan-name   { font-weight: 700; font-size: 1rem; }
+    .k-plan-price  { font-size: 1.5rem; font-weight: 800; color: var(--violet); }
+    .k-plan-period { font-size: 0.75rem; color: var(--muted); }
+    .k-features    { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.75rem; }
+    .k-feature     { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: var(--muted); }
+    .k-feature i   { color: var(--violet); font-size: 0.75rem; }
+
+    /* =============================================
+       FAQ
+    ============================================= */
+    #faq { background: var(--midnight); }
+    .faq-list { max-width: 760px; margin: 3rem auto 0; display: flex; flex-direction: column; gap: 0.75rem; }
+    .faq-item {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: var(--radius-md); overflow: hidden;
+    }
+    .faq-question {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: 1.25rem 1.5rem;
+      background: none; border: none; text-align: left;
+      color: var(--frost); font-size: 0.95rem; font-weight: 600;
+      transition: background var(--transition);
+    }
+    .faq-question:hover { background: rgba(255,255,255,0.04); }
+    .faq-question[aria-expanded="true"] { color: var(--cyan); }
+    .faq-icon { font-size: 0.8rem; color: var(--muted); flex-shrink: 0; transition: transform var(--transition); }
+    .faq-question[aria-expanded="true"] .faq-icon { transform: rotate(180deg); color: var(--cyan); }
+    .faq-answer { overflow: hidden; max-height: 0; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .faq-answer:not([hidden]) { max-height: 500px; }
+    .faq-answer p { padding: 0 1.5rem 1.25rem; color: var(--muted); font-size: 0.875rem; line-height: 1.8; }
+
+    /* =============================================
+       AI AUDIT
+    ============================================= */
+    #ai-audit { background: var(--navy); }
+    .audit-terminal {
+      max-width: 780px; margin: 3rem auto 0;
+      border-radius: var(--radius-lg); overflow: hidden;
+      border: 1px solid rgba(56,189,248,0.2);
+      box-shadow: 0 0 60px rgba(56,189,248,0.08);
+    }
+    .terminal-bar {
+      background: rgba(56,189,248,0.06); padding: 0.75rem 1.25rem;
+      display: flex; align-items: center; gap: 0.6rem;
+      border-bottom: 1px solid rgba(56,189,248,0.12);
+    }
+    .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .td-red    { background: #ff5f57; }
+    .td-yellow { background: #febc2e; }
+    .td-green  { background: #28c840; }
+    .terminal-title {
+      margin-left: 0.5rem; font-family: var(--font-code); font-size: 0.75rem;
+      color: var(--muted); flex: 1; text-align: center;
+    }
+    .terminal-body { background: rgba(2,6,23,0.9); padding: 2rem; }
+    .audit-prompt { font-family: var(--font-code); font-size: 0.75rem; color: var(--muted); margin-bottom: 1rem; }
+    .audit-prompt span { color: var(--cyan); }
+    .audit-form { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .audit-input-wrap { flex: 1; min-width: 220px; position: relative; }
+    .audit-input-wrap i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--cyan); font-size: 0.85rem; pointer-events: none; }
+    #auditUrl {
+      width: 100%; padding: 0.8rem 1rem 0.8rem 2.5rem;
+      background: rgba(56,189,248,0.05); border: 1px solid rgba(56,189,248,0.2);
+      border-radius: var(--radius-sm); color: var(--frost);
+      font-family: var(--font-code); font-size: 0.875rem;
+      outline: none; transition: border-color var(--transition);
+    }
+    #auditUrl::placeholder { color: var(--muted); }
+    #auditUrl:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(56,189,248,0.12); }
+    #auditLoader { display: flex; align-items: center; gap: 1rem; padding: 1.5rem 0; font-family: var(--font-code); font-size: 0.8rem; color: var(--cyan); }
+    .loader-dots span { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); animation: dot-bounce 1.2s infinite ease-in-out; }
+    .loader-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loader-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes dot-bounce { 0%,80%,100%{transform:scale(0)} 40%{transform:scale(1)} }
+    #auditResult { padding: 1.5rem 0 0; }
+    .audit-result-content { display: flex; flex-direction: column; gap: 1.25rem; }
+    .audit-block { padding: 1.25rem; border-radius: var(--radius-sm); background: rgba(56,189,248,0.04); border: 1px solid rgba(56,189,248,0.1); }
+    .audit-block h4 { font-size: 0.875rem; font-weight: 600; color: var(--cyan); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .audit-block p { font-size: 0.875rem; color: var(--muted); line-height: 1.8; }
+    .audit-error { color: #f87171; font-size: 0.875rem; padding: 1rem; border-radius: var(--radius-sm); background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.2); }
+
+    /* =============================================
+       AGENDA / FORM
+    ============================================= */
+    #agenda {
+      background:
+        radial-gradient(circle at 80% 20%, rgba(56,189,248,0.12), transparent 30%),
+        radial-gradient(circle at 16% 82%, rgba(139,92,246,0.16), transparent 34%),
+        var(--midnight);
+      position: relative; overflow: hidden;
+    }
+    .agenda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; margin-top: 3rem; }
+    @media (max-width:768px) { .agenda-grid { grid-template-columns: 1fr; } }
+    .agenda-info h3 { font-size: 1.4rem; margin-bottom: 1rem; }
+    .agenda-bullets { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.5rem; }
+    .agenda-bullet { display: flex; align-items: center; gap: 0.85rem; font-size: 0.9rem; color: var(--muted); }
+    .agenda-bullet-icon {
+      width: 36px; height: 36px; border-radius: var(--radius-sm);
+      background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cyan); font-size: 0.9rem; flex-shrink: 0;
+    }
+    .booking-form-card { padding: 2rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width:500px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: 1/-1; }
+    .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--muted); letter-spacing: 0.06em; font-family: var(--font-code); }
+    .form-input {
+      padding: 0.75rem 1rem; background: rgba(255,255,255,0.04);
+      border: 1px solid var(--card-border); border-radius: var(--radius-sm);
+      color: var(--frost); font-family: inherit; font-size: 0.9rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .form-input::placeholder { color: var(--muted); opacity: 0.6; }
+    .form-input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(56,189,248,0.1); outline: none; }
+    select.form-input option { background: var(--midnight); color: var(--frost); }
+    textarea.form-input { min-height: 120px; resize: vertical; }
+    .form-note {
+      font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 0.75rem;
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    #footer {
+      background: var(--midnight); border-top: 1px solid var(--card-border);
+      padding: 4rem 0 2rem;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 3rem; }
+    @media (max-width:900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width:500px) { .footer-grid { grid-template-columns: 1fr; } }
+    .footer-brand .nav-logo { margin-bottom: 1rem; }
+    .footer-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+    .footer-social { display: flex; gap: 0.75rem; }
+    .footer-social a {
+      width: 36px; height: 36px; border-radius: var(--radius-sm);
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.9rem; transition: var(--transition);
+    }
+    .footer-social a:hover { border-color: var(--cyan); color: var(--cyan); }
+    .footer-col h4 { font-size: 0.8rem; font-weight: 700; color: var(--frost); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-col ul a { font-size: 0.875rem; color: var(--muted); transition: color var(--transition); }
+    .footer-col ul a:hover { color: var(--cyan); }
+    .footer-bottom {
+      padding-top: 2rem; border-top: 1px solid var(--card-border);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem; font-size: 0.8rem; color: var(--muted);
+    }
+    .footer-bottom a { color: var(--muted); }
+    .footer-bottom a:hover { color: var(--cyan); }
+
+    /* =============================================
+       SECTION HEADER
+    ============================================= */
+    .section-header { text-align: center; max-width: 640px; margin: 0 auto; }
+    .section-header p { color: var(--muted); font-size: 1rem; margin-top: 0.75rem; line-height: 1.8; }
+
+    /* =============================================
+       REVEAL ANIMATIONS
+    ============================================= */
+    .reveal { opacity: 1; transform: none; }
+    .js .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .js .reveal.visible { opacity: 1; transform: translateY(0); }
+    /* Ensure content is always visible for users who prefer reduced motion or when JS fails */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+
+    /* =============================================
+       UTILS
+    ============================================= */
+    .mt-1{margin-top:0.5rem} .mt-2{margin-top:1rem} .mt-3{margin-top:1.5rem} .mt-4{margin-top:2rem}
+    .mb-1{margin-bottom:0.5rem} .mb-2{margin-bottom:1rem}
+    .text-center{text-align:center} .w-full{width:100%}
+
+    /* =============================================
+       SCROLLBAR
+    ============================================= */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.3); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
+
+    @media (max-width:600px) {
+      section { padding: 3.5rem 0; }
+      .hero-ctas { flex-direction: column; }
+      .hero-ctas .btn { width: 100%; justify-content: center; }
+      .pricing-card.featured { transform: none; }
+    }
+    /* Toast notification */
+    .toast {
+      position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(4rem);
+      background: var(--midnight); color: var(--frost);
+      border: 1px solid rgba(56,189,248,0.25); border-radius: 8px;
+      padding: 0.75rem 1.25rem; font-size: 0.9rem; z-index: 9999;
+      transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), opacity 0.35s;
+      opacity: 0; pointer-events: none; white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  </style>
+</head>
+<body>
+  <!-- Skip link -->
+  <a class="skip-link" href="#main">Saltar al contenido principal</a>
+
+  <!-- Scroll progress -->
+  <div id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Toast notification -->
+  <div id="toast" role="alert" aria-live="polite" aria-atomic="true" class="toast"></div>
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <nav id="navbar" role="navigation" aria-label="Navegación principal">
+    <div class="container nav-inner">
+      <a href="#hero" class="nav-logo" aria-label="DaniCodex inicio">
+        <div class="nav-logo-icon" aria-hidden="true">D</div>
+        <span>Dani<span class="text-cyan">Codex</span></span>
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#kpi">Resultados</a></li>
+        <li><a href="#proceso">Proceso</a></li>
+        <li><a href="#planes">Planes</a></li>
+        <li><a href="#konexia">Konexia</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#ai-audit">AI Audit</a></li>
+        <li><a href="#agenda">Contacto</a></li>
+      </ul>
+
+      <a href="https://wa.me/525662494947" class="btn btn-primary btn-sm nav-cta nav-cta-desktop" data-whatsapp-plan="Diagnóstico inicial" data-business-type="No especificado">
+        <i class="fas fa-calendar-check" aria-hidden="true"></i> Agendar
+      </a>
+
+      <button class="hamburger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menú de navegación">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile overlay -->
+  <div id="mobileMenu" class="nav-mobile-menu" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Menú de navegación móvil">
+    <a href="#kpi">Resultados</a>
+    <a href="#proceso">Proceso</a>
+    <a href="#planes">Planes</a>
+    <a href="#konexia">Konexia</a>
+    <a href="#faq">FAQ</a>
+    <a href="#ai-audit">AI Audit</a>
+    <a href="#agenda">Contacto</a>
+    <a href="https://wa.me/525662494947" class="btn btn-primary btn-lg" style="margin-top:1rem" data-whatsapp-plan="Diagnóstico inicial" data-business-type="No especificado">
+      <i class="fas fa-calendar-check" aria-hidden="true"></i> Agendar Diagnóstico
+    </a>
+  </div>
+
+  <!-- ============================================================
+       MAIN
+  ============================================================ -->
+  <main id="main">
+
+    <!-- HERO -->
+    <section id="hero" aria-label="Presentación principal">
+      <canvas id="heroCanvas" aria-hidden="true"></canvas>
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-radial" aria-hidden="true"></div>
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge-row" aria-label="Especialidades">
+            <span class="hero-badge">Web Premium</span>
+            <span class="hero-badge">WhatsApp Directo</span>
+            <span class="hero-badge">Estrategia Digital</span>
+            <span class="hero-badge">IA + Automatización</span>
+            <span class="hero-badge">SEO Local</span>
+          </div>
+          <h1 class="hero-title">
+            Diseño web, marketing y automatización para convertir visitas en clientes.<br>
+            <span class="hero-typewriter" id="heroTypewriter" aria-live="polite"></span>
+          </h1>
+          <p class="hero-subtitle">
+            Creamos presencia digital premium para negocios que quieren vender más, verse mejor y operar más inteligente.
+            DaniCodex construye la tecnología; Konexia activa el marketing, contenido, ads y captación.
+          </p>
+          <div class="hero-ctas">
+            <a href="https://wa.me/525662494947" class="btn btn-primary btn-lg" data-whatsapp-plan="Diagnóstico inicial" data-business-type="No especificado" data-extra-message="Vi el hero y quiero revisar mi presencia digital.">
+              <i class="fas fa-rocket" aria-hidden="true"></i> Agendar Diagnóstico
+            </a>
+            <a href="https://wa.me/525662494947" class="btn btn-whatsapp btn-lg" data-whatsapp-plan="Cotización rápida" data-business-type="No especificado">
+              <i class="fab fa-whatsapp" aria-hidden="true"></i> Cotizar por WhatsApp
+            </a>
+          </div>
+          <div class="hero-trust" aria-label="Señales de confianza">
+            <span><i class="fas fa-calendar-check" aria-hidden="true"></i> Diagnóstico inicial disponible esta semana</span>
+            <span><i class="fas fa-layer-group" aria-hidden="true"></i> Cupos limitados para proyectos nuevos</span>
+            <span><i class="fab fa-whatsapp" aria-hidden="true"></i> Respuesta directa por WhatsApp</span>
+          </div>
+          <div class="hero-social-actions" aria-label="Canales sociales">
+            <a class="social-link-btn" href="https://www.instagram.com/ssdanielmo" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i> Ver Instagram</a>
+            <a class="social-link-btn" href="https://www.linkedin.com/in/kevin-daniel-mart%C3%ADnez-orozco-446427220/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in" aria-hidden="true"></i> Perfil profesional</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <span class="label-code">scroll</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </section>
+
+    <!-- KPI STRIP -->
+    <section id="kpi" aria-label="Resultados clave">
+      <div class="container">
+        <div class="kpi-grid">
+          <div class="kpi-item">
+            <div class="kpi-number" data-target="40" data-prefix="+" data-suffix="%">+0%</div>
+            <div class="kpi-label">Nuevas citas</div>
+            <div class="kpi-source">// Clínica Dental</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-number" data-target="15" data-prefix="" data-suffix="hrs">0hrs</div>
+            <div class="kpi-label">Ahorradas / semana</div>
+            <div class="kpi-source">// FitLife</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-number" data-target="3" data-prefix="" data-suffix="">0</div>
+            <div class="kpi-label">Contratos corporativos</div>
+            <div class="kpi-source">// Legal</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-number" data-target="95" data-prefix="+" data-suffix="">+0</div>
+            <div class="kpi-label">Clientes satisfechos</div>
+            <div class="kpi-source">// Total</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASOS DE EXITO -->
+    <section id="casos" aria-labelledby="casos-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Casos de Éxito</span>
+          <h2 id="casos-title">Resultados <span class="text-gradient">Reales</span></h2>
+          <p>Arquitectura digital pensada para confianza, captación y seguimiento. Sin promesas infladas: estrategia, ejecución y medición.</p>
+        </div>
+        <div class="casos-grid">
+          <article class="glass-card glow-card tilt-card" aria-label="Caso: Clínica Dental">
+            <div class="case-icon icon-cyan"><i class="fas fa-tooth" aria-hidden="true"></i></div>
+            <span class="case-tag">Salud · Landing Page</span>
+            <div class="case-metric">+40%</div>
+            <div class="case-metric-label">Nuevas citas agendadas</div>
+            <h3 class="case-title">Clínica Dental Premium</h3>
+            <p class="case-desc">Landing page con sistema de agendado integrado con WhatsApp. SEO local que triplicó la visibilidad en Google Maps.</p>
+          </article>
+          <article class="glass-card glow-card tilt-card" aria-label="Caso: FitLife">
+            <div class="case-icon icon-success"><i class="fas fa-dumbbell" aria-hidden="true"></i></div>
+            <span class="case-tag">Fitness · Sistema Web</span>
+            <div class="case-metric">15hrs</div>
+            <div class="case-metric-label">Ahorradas por semana</div>
+            <h3 class="case-title">FitLife Studio</h3>
+            <p class="case-desc">Sistema de reservas y membresías online. Automatización de cobranza y recordatorios que eliminaron tareas manuales.</p>
+          </article>
+          <article class="glass-card glow-card tilt-card" aria-label="Caso: Legal">
+            <div class="case-icon icon-indigo"><i class="fas fa-briefcase" aria-hidden="true"></i></div>
+            <span class="case-tag">Legal · Web Corporativa</span>
+            <div class="case-metric">3</div>
+            <div class="case-metric-label">Contratos corporativos</div>
+            <h3 class="case-title">Despacho Jurídico</h3>
+            <p class="case-desc">Sitio web corporativo de alta credibilidad con portafolio de casos y formulario de consultoría. Posicionamiento B2B.</p>
+          </article>
+          <article class="glass-card glow-card tilt-card" aria-label="Caso: E-commerce">
+            <div class="case-icon icon-violet"><i class="fas fa-store" aria-hidden="true"></i></div>
+            <span class="case-tag">Retail · Tienda Online</span>
+            <div class="case-metric">2.8x</div>
+            <div class="case-metric-label">ROI en 60 días</div>
+            <h3 class="case-title">Boutique Fashion MX</h3>
+            <p class="case-desc">Tienda online con catálogo dinámico, carrito y pasarela de pagos. Integración con redes sociales y pixel de conversión.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section id="proceso" aria-labelledby="proceso-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Sistema de Trabajo</span>
+          <h2 id="proceso-title">El <span class="text-gradient">Proceso</span></h2>
+          <p>Un flujo claro para pasar de idea dispersa a sistema digital publicable, medible y preparado para captar leads.</p>
+        </div>
+        <div class="process-steps" id="processSteps">
+          <div class="process-line" aria-hidden="true">
+            <div class="process-line-fill" id="processLineFill"></div>
+          </div>
+          <div class="process-step reveal">
+            <div class="step-circle" data-step="1">
+              <i class="fas fa-comments" aria-hidden="true" style="color:var(--cyan)"></i>
+              <span class="step-num" aria-hidden="true">1</span>
+            </div>
+            <div>
+              <div class="step-title">Diagnóstico</div>
+              <div class="step-desc">Entendemos tu negocio, mercado y objetivos en profundidad.</div>
+            </div>
+          </div>
+          <div class="process-step reveal" style="transition-delay:.1s">
+            <div class="step-circle" data-step="2">
+              <i class="fas fa-pencil-ruler" aria-hidden="true" style="color:var(--indigo)"></i>
+              <span class="step-num" aria-hidden="true">2</span>
+            </div>
+            <div>
+              <div class="step-title">Estrategia</div>
+              <div class="step-desc">Arquitectura de conversión y wireframes de alta fidelidad.</div>
+            </div>
+          </div>
+          <div class="process-step reveal" style="transition-delay:.2s">
+            <div class="step-circle" data-step="3">
+              <i class="fas fa-code" aria-hidden="true" style="color:var(--violet)"></i>
+              <span class="step-num" aria-hidden="true">3</span>
+            </div>
+            <div>
+              <div class="step-title">Desarrollo</div>
+              <div class="step-desc">Código limpio, veloz y optimizado para conversión.</div>
+            </div>
+          </div>
+          <div class="process-step reveal" style="transition-delay:.3s">
+            <div class="step-circle" data-step="4">
+              <i class="fas fa-vial" aria-hidden="true" style="color:var(--success)"></i>
+              <span class="step-num" aria-hidden="true">4</span>
+            </div>
+            <div>
+              <div class="step-title">Testing</div>
+              <div class="step-desc">QA multi-dispositivo, velocidad y accesibilidad.</div>
+            </div>
+          </div>
+          <div class="process-step reveal" style="transition-delay:.4s">
+            <div class="step-circle" data-step="5">
+              <i class="fas fa-rocket" aria-hidden="true" style="color:var(--cyan)"></i>
+              <span class="step-num" aria-hidden="true">5</span>
+            </div>
+            <div>
+              <div class="step-title">Lanzamiento</div>
+              <div class="step-desc">Deploy, métricas y soporte post-lanzamiento incluido.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="planes" aria-labelledby="planes-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Inversión</span>
+          <h2 id="planes-title">Planes para verte <span class="text-gradient">premium</span> y vender mejor</h2>
+          <p>Paquetes claros para lanzar, mejorar o escalar tu presencia digital con diseño, estrategia, automatización y contacto directo.</p>
+        </div>
+        <div class="promo-announcement" role="note" aria-label="Promoción de lanzamiento">
+          <strong>Diagnóstico inicial disponible esta semana</strong>
+          <span class="promo-sep">·</span> Cupos limitados para proyectos nuevos
+          <span class="promo-sep">·</span> Respuesta directa por WhatsApp
+        </div>
+        <div class="pricing-grid">
+          <!-- Landing Page -->
+          <div class="glass-card glow-card pricing-card reveal" aria-label="Plan Landing Page">
+            <div class="plan-promo-badge"><i class="fas fa-tag" aria-hidden="true"></i> 25% OFF</div>
+            <div class="plan-name">Landing Page</div>
+            <div class="plan-price">$850 <small style="font-size:1rem;color:var(--muted)">MXN</small></div>
+            <div class="plan-price-before">antes $1,150 MXN</div>
+            <div class="plan-promo-label"><i class="fas fa-clock" aria-hidden="true"></i> Tarifa vigente este mes</div>
+            <ul class="plan-features" aria-label="Características">
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Primera pantalla lista para convertir</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Copy de venta y estructura premium</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> SEO local base y carga rápida</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> WhatsApp con mensaje prellenado</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Ideal para validar oferta en 3-5 días</li>
+              <li class="plan-feature missing"><i class="fas fa-times" aria-hidden="true"></i> Blog / CMS</li>
+              <li class="plan-feature missing"><i class="fas fa-times" aria-hidden="true"></i> Sistema de agendado</li>
+            </ul>
+            <button class="btn btn-outline w-full" data-plan="Landing Page">
+              <i class="fas fa-arrow-right" aria-hidden="true"></i> Seleccionar
+            </button>
+          </div>
+
+          <!-- Web Negocio FEATURED -->
+          <div class="glass-card glow-card pricing-card featured reveal" style="transition-delay:.1s" aria-label="Plan Web Negocio, el más vendido">
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem">
+              <span class="featured-badge" style="margin-bottom:0">⭐ Más Vendido</span>
+              <span class="plan-promo-badge" style="margin-bottom:0"><i class="fas fa-tag" aria-hidden="true"></i> 25% OFF</span>
+            </div>
+            <div class="plan-name">Web Negocio</div>
+            <div class="plan-price">$1,990 <small style="font-size:1rem;color:var(--muted)">MXN</small></div>
+            <div class="plan-price-before">antes $2,650 MXN</div>
+            <div class="plan-promo-label"><i class="fas fa-hourglass-half" aria-hidden="true"></i> Cupos limitados este mes</div>
+            <ul class="plan-features" aria-label="Características">
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Sitio completo para servicios, clínica, local o marca</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Secciones de confianza, oferta y prueba social</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> SEO técnico y estructura para Google</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> WhatsApp, formularios y tracking de leads</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Analytics para medir visitas y consultas</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Entrega estimada 7-12 días</li>
+              <li class="plan-feature missing"><i class="fas fa-times" aria-hidden="true"></i> Sistema a medida</li>
+            </ul>
+            <button class="btn btn-primary w-full" data-plan="Web Negocio">
+              <i class="fas fa-rocket" aria-hidden="true"></i> Quiero este plan
+            </button>
+          </div>
+
+          <!-- Sistema Pro -->
+          <div class="glass-card glow-card pricing-card reveal" style="transition-delay:.2s" aria-label="Plan Sistema Pro">
+            <div class="plan-promo-badge"><i class="fas fa-tag" aria-hidden="true"></i> 25% OFF</div>
+            <div class="plan-name">Sistema Pro</div>
+            <div class="plan-price">$3,950 <small style="font-size:1rem;color:var(--muted)">MXN</small></div>
+            <div class="plan-price-before">antes $5,250 MXN</div>
+            <div class="plan-promo-label"><i class="fas fa-clock" aria-hidden="true"></i> Oferta de Lanzamiento</div>
+            <ul class="plan-features" aria-label="Características">
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Sistema a medida para vender u operar mejor</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Reservas, citas, pagos o panel administrativo</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Automatización de tareas repetitivas</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Integraciones con herramientas de tu negocio</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Base escalable y soporte inicial</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Entrega estimada 15-25 días</li>
+            </ul>
+            <button class="btn btn-outline w-full" data-plan="Sistema Pro">
+              <i class="fas fa-arrow-right" aria-hidden="true"></i> Comenzar
+            </button>
+          </div>
+
+          <!-- Personalizado -->
+          <div class="glass-card glow-card pricing-card reveal" style="transition-delay:.3s" aria-label="Plan Personalizado">
+            <div class="plan-name">Personalizado</div>
+            <div class="plan-price" style="font-size:1.5rem">A la Medida</div>
+            <div class="plan-price-before">Cotización sin compromiso</div>
+            <ul class="plan-features" aria-label="Características">
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Arquitectura pensada para tu operación real</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Integraciones, automatizaciones e IA según caso</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Estrategia de marca, contenido y adquisición</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Roadmap por fases para no improvisar</li>
+              <li class="plan-feature"><i class="fas fa-check" aria-hidden="true"></i> Ideal para e-commerce, academias o servicios complejos</li>
+            </ul>
+            <button class="btn btn-violet w-full" data-plan="Personalizado">
+              <i class="fas fa-envelope" aria-hidden="true"></i> Cotizar
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONEXIA -->
+    <section id="konexia" aria-labelledby="konexia-title">
+      <div class="container">
+        <div class="konexia-grid">
+          <div class="reveal">
+            <span class="konexia-badge"><i class="fas fa-bolt" aria-hidden="true"></i> Marketing Digital</span>
+            <h2 id="konexia-title">Konexia<br><span class="text-gradient">Marketing</span></h2>
+            <p class="text-muted mt-2" style="line-height:1.8;font-size:0.95rem">
+              El brazo de marketing de DaniCodex: redes, ads, branding, contenido, e-commerce y captación
+              para que tu presencia no solo se vea bien, también genere conversaciones comerciales.
+            </p>
+            <ul style="margin-top:1.5rem;display:flex;flex-direction:column;gap:0.7rem">
+              <li class="plan-feature" style="color:var(--muted)"><i class="fas fa-check" style="color:var(--violet)" aria-hidden="true"></i> Redes sociales con dirección visual y mensaje consistente</li>
+              <li class="plan-feature" style="color:var(--muted)"><i class="fas fa-check" style="color:var(--violet)" aria-hidden="true"></i> Campañas Meta Ads y Google Ads enfocadas en leads</li>
+              <li class="plan-feature" style="color:var(--muted)"><i class="fas fa-check" style="color:var(--violet)" aria-hidden="true"></i> SEO local para aparecer cuando te buscan cerca</li>
+              <li class="plan-feature" style="color:var(--muted)"><i class="fas fa-check" style="color:var(--violet)" aria-hidden="true"></i> Branding, contenido y e-commerce con intención comercial</li>
+              <li class="plan-feature" style="color:var(--muted)"><i class="fas fa-check" style="color:var(--violet)" aria-hidden="true"></i> Reportes simples para saber qué sí está funcionando</li>
+            </ul>
+            <div class="mt-4">
+              <a href="https://wa.me/525662494947" class="btn btn-violet" data-plan="Konexia Crecimiento">
+                <i class="fas fa-chart-line" aria-hidden="true"></i> Quiero crecer con Konexia
+              </a>
+            </div>
+          </div>
+          <div class="konexia-plans reveal" style="transition-delay:.2s">
+            <div class="konexia-plan">
+              <div class="k-plan-header">
+                <div>
+                  <div class="k-plan-promo-tag">25% OFF</div>
+                  <div class="k-plan-name">Plan Inicial</div>
+                </div>
+                <div class="k-plan-price-wrap">
+                  <div class="k-plan-price-old">$675/mes</div>
+                  <div class="k-plan-price">$499</div>
+                  <div class="k-plan-period">/mes MXN</div>
+                </div>
+              </div>
+              <ul class="k-features">
+                <li class="k-feature"><i class="fas fa-check" aria-hidden="true"></i> 2 redes sociales con línea visual cuidada</li>
+                <li class="k-feature"><i class="fas fa-check" aria-hidden="true"></i> 12 publicaciones/mes orientadas a confianza</li>
+                <li class="k-feature"><i class="fas fa-check" aria-hidden="true"></i> Calendario de contenido y reporte básico</li>
+                <li class="k-feature"><i class="fas fa-check" aria-hidden="true"></i> Preparado para llevar consultas a WhatsApp</li>
+              </ul>
+              <button class="btn btn-outline btn-sm w-full mt-2" data-plan="Konexia Inicial">Comenzar</button>
+            </div>
+            <div class="konexia-plan featured">
+              <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem">
+                <span class="featured-badge" style="background:linear-gradient(135deg,var(--violet),var(--indigo));margin-bottom:0">⭐ Más Popular</span>
+                <span class="k-plan-promo-tag" style="padding:.2rem .65rem;border-radius:100px">25% OFF</span>
+              </div>
+              <div class="k-plan-header">
+                <div class="k-plan-name">Plan Crecimiento</div>
+                <div class="k-plan-price-wrap">
+                  <div class="k-plan-price-old">$1,900/mes</div>
+                  <div class="k-plan-price">$1,425</div>
+                  <div class="k-plan-period">/mes MXN</div>
+                </div>
+              </div>
+              <ul class="k-features">
+                <li class="k-feature"><i class="fas fa-check" aria-hidden="true"></i> 4 redes sociales con estrategia de contenido</li>
+                <li class="k-feature"><i class="fas fa-check" aria-hidden="true"></i> 24 publicaciones/mes y piezas para campaña</li>
+                <li class="k-feature"><i class="fas fa-check" aria-hidden="true"></i> Ads para captación de prospectos</li>
+                <li class="k-feature"><i class="fas fa-check" aria-hidden="true"></i> SEO local activo y mejora de presencia</li>
+                <li class="k-feature"><i class="fas fa-check" aria-hidden="true"></i> Reporte detallado + reunión mensual</li>
+              </ul>
+              <button class="btn btn-violet btn-sm w-full mt-2" data-plan="Konexia Crecimiento">
+                <i class="fas fa-rocket" aria-hidden="true"></i> Quiero crecer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Preguntas Frecuentes</span>
+          <h2 id="faq-title">¿Tienes <span class="text-gradient">dudas</span>?</h2>
+          <p>Estas son las preguntas más comunes antes de comenzar un proyecto.</p>
+        </div>
+        <div class="faq-list" role="list">
+          <div class="faq-item" role="listitem">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1" id="faq-btn-1">
+              <span>¿Cuánto tardan los proyectos?</span>
+              <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
+            </button>
+            <div id="faq-answer-1" class="faq-answer" hidden role="region" aria-labelledby="faq-btn-1">
+              <p>Landing Pages: 3-5 días hábiles. Web Negocio: 7-12 días. Sistema Pro: 15-25 días. Los tiempos dependen de la complejidad y la rapidez con que nos entregues los materiales.</p>
+            </div>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2" id="faq-btn-2">
+              <span>¿Cómo funciona el pago?</span>
+              <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
+            </button>
+            <div id="faq-answer-2" class="faq-answer" hidden role="region" aria-labelledby="faq-btn-2">
+              <p>50% al inicio del proyecto y 50% al entregar el resultado final. Aceptamos transferencia bancaria, OXXO Pay y PayPal. Para proyectos más grandes podemos acordar un plan de pagos personalizado.</p>
+            </div>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3" id="faq-btn-3">
+              <span>¿Dominio y Hosting incluidos?</span>
+              <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
+            </button>
+            <div id="faq-answer-3" class="faq-answer" hidden role="region" aria-labelledby="faq-btn-3">
+              <p>El desarrollo no incluye dominio ni hosting por defecto, ya que son servicios de terceros con costos anuales. Sin embargo, te asesoramos en la elección y configuración de las mejores opciones según tu proyecto y presupuesto.</p>
+            </div>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4" id="faq-btn-4">
+              <span>¿Pueden hacer logos y branding?</span>
+              <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
+            </button>
+            <div id="faq-answer-4" class="faq-answer" hidden role="region" aria-labelledby="faq-btn-4">
+              <p>¡Sí! Contamos con servicio de identidad de marca: diseño de logo, paleta de colores, tipografías y guía de marca básica. Este servicio tiene un costo adicional pero se integra perfectamente con el desarrollo de tu sitio web.</p>
+            </div>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5" id="faq-btn-5">
+              <span>¿Qué pasa si no quedo satisfecho?</span>
+              <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
+            </button>
+            <div id="faq-answer-5" class="faq-answer" hidden role="region" aria-labelledby="faq-btn-5">
+              <p>Incluimos hasta 3 rondas de revisiones sin costo adicional. Si tras las revisiones el resultado no cumple con lo acordado en el brief inicial, devolvemos el 50% del pago. Tu satisfacción es nuestra prioridad.</p>
+            </div>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6" id="faq-btn-6">
+              <span>¿Trabajan con negocios fuera de México?</span>
+              <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
+            </button>
+            <div id="faq-answer-6" class="faq-answer" hidden role="region" aria-labelledby="faq-btn-6">
+              <p>Absolutamente. Trabajamos con clientes en toda Latinoamérica, España y Estados Unidos. Toda la comunicación es por videollamada y mensajería digital. Los pagos internacionales se procesan por PayPal o transferencia SWIFT.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI AUDIT -->
+    <section id="ai-audit" class="ai-audit-section" aria-labelledby="audit-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Motor Neural · Diagnóstico Neural</span>
+          <h2 id="audit-title">Auditoría de IA en <span class="text-gradient">Tiempo Real</span></h2>
+          <p>Introduce la URL de tu sitio web o describe tu negocio y nuestro motor de IA generará un diagnóstico digital personalizado al instante.</p>
+        </div>
+        <div class="audit-terminal reveal">
+          <div class="terminal-bar" aria-hidden="true">
+            <div class="terminal-dot td-red"></div>
+            <div class="terminal-dot td-yellow"></div>
+            <div class="terminal-dot td-green"></div>
+            <span class="terminal-title">DaniCodex Neural Engine v2.4 · Secure · Encrypted</span>
+          </div>
+          <div class="terminal-body">
+            <p class="audit-prompt"><span>root@danicodex</span>:~$ ./neural-audit --mode=full --target=</p>
+            <form id="auditForm" aria-label="Formulario de auditoría de IA">
+              <div class="audit-form">
+                <div class="audit-input-wrap">
+                  <i class="fas fa-globe" aria-hidden="true"></i>
+                  <input type="text" id="auditUrl" name="auditUrl"
+                    placeholder="Tu URL o describe tu negocio (ej: clínica dental en CDMX)"
+                    required autocomplete="off"
+                    aria-label="URL o descripción de tu negocio" maxlength="300">
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-brain" aria-hidden="true"></i> Analizar presencia
+                </button>
+              </div>
+            </form>
+            <div id="auditLoader" hidden role="status" aria-label="Analizando tu negocio...">
+              <div class="loader-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <span>Analizando con motor neural...</span>
+            </div>
+            <div id="auditResult" hidden aria-live="polite" aria-atomic="true" aria-busy="false">
+              <div class="audit-result-content"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIAGNOSTICO / FORM -->
+    <section id="agenda" aria-labelledby="agenda-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Sistema Digital</span>
+          <h2 id="agenda-title">Construyamos tu <span class="text-gradient">sistema digital</span></h2>
+          <p>Cuéntanos qué vendes, qué necesitas mejorar y te responderemos por WhatsApp con una ruta clara para tu web, marketing o automatización.</p>
+        </div>
+        <div class="agenda-grid">
+          <div class="agenda-info reveal">
+            <h3>Diagnóstico inicial disponible esta semana</h3>
+            <p class="text-muted" style="font-size:.9rem">Revisamos tu situación digital, detectamos oportunidades reales y te decimos qué conviene construir primero: una landing, una web completa, marketing, branding o automatización.</p>
+            <div class="agenda-bullets">
+              <div class="agenda-bullet">
+                <div class="agenda-bullet-icon"><i class="fas fa-clock" aria-hidden="true"></i></div>
+                <span>Respuesta directa por WhatsApp</span>
+              </div>
+              <div class="agenda-bullet">
+                <div class="agenda-bullet-icon"><i class="fas fa-chart-bar" aria-hidden="true"></i></div>
+                <span>Enfoque en más clientes, mejor imagen y captación de leads</span>
+              </div>
+              <div class="agenda-bullet">
+                <div class="agenda-bullet-icon"><i class="fas fa-map-marked-alt" aria-hidden="true"></i></div>
+                <span>Ruta de trabajo según etapa, presupuesto y urgencia</span>
+              </div>
+              <div class="agenda-bullet">
+                <div class="agenda-bullet-icon"><i class="fas fa-robot" aria-hidden="true"></i></div>
+                <span>Automatización e IA cuando realmente aporte valor</span>
+              </div>
+              <div class="agenda-bullet">
+                <div class="agenda-bullet-icon" style="background:rgba(37,211,102,.12);border-color:rgba(37,211,102,.2);color:var(--whatsapp)">
+                  <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                </div>
+                <span>Cupos limitados para proyectos nuevos</span>
+              </div>
+            </div>
+          </div>
+          <div class="glass-card glow-card booking-form-card reveal" style="transition-delay:.2s">
+            <form id="bookingForm" aria-label="Formulario de diagnóstico por WhatsApp" novalidate>
+              <div class="form-grid">
+                <div class="form-group full">
+                  <label for="plan">Plan de interés</label>
+                  <select id="plan" name="plan" class="form-input" required>
+                    <option value="" disabled selected>Selecciona un plan</option>
+                    <option value="Landing Page">Landing Page</option>
+                    <option value="Web Negocio">Web Negocio</option>
+                    <option value="Sistema Pro">Sistema Pro</option>
+                    <option value="Marketing Konexia">Marketing Konexia</option>
+                    <option value="Branding + Contenido">Branding + Contenido</option>
+                    <option value="No sé quiero diagnóstico">No sé quiero diagnóstico</option>
+                  </select>
+                </div>
+                <div class="form-group full">
+                  <label for="businessType">Tipo de negocio</label>
+                  <select id="businessType" name="businessType" class="form-input" required>
+                    <option value="" disabled selected>Selecciona el tipo de negocio</option>
+                    <option value="Restaurante/comida">Restaurante/comida</option>
+                    <option value="Barbería/estética">Barbería/estética</option>
+                    <option value="Gym/fitness">Gym/fitness</option>
+                    <option value="Clínica/salud">Clínica/salud</option>
+                    <option value="Tienda/e-commerce">Tienda/e-commerce</option>
+                    <option value="Servicio profesional">Servicio profesional</option>
+                    <option value="Escuela/curso">Escuela/curso</option>
+                    <option value="Otro">Otro</option>
+                  </select>
+                </div>
+                <div class="form-group full">
+                  <label for="negocio">Nombre del negocio <span class="text-muted">(opcional)</span></label>
+                  <input type="text" id="negocio" name="negocio" class="form-input" placeholder="Ej: Clínica dental en Guadalajara" autocomplete="organization">
+                </div>
+                <div class="form-group full">
+                  <label for="needs">Qué necesita mejorar <span class="text-muted">(opcional)</span></label>
+                  <textarea id="needs" name="needs" class="form-input" placeholder="Ej: quiero más citas por WhatsApp, renovar mi imagen, vender online o automatizar respuestas"></textarea>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-whatsapp btn-lg w-full mt-3">
+                <i class="fab fa-whatsapp" aria-hidden="true"></i> Enviar diagnóstico por WhatsApp
+              </button>
+              <p class="form-note">
+                Al enviar se abrirá WhatsApp con el mensaje pre-completado.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#hero" class="nav-logo" aria-label="DaniCodex inicio">
+            <div class="nav-logo-icon" aria-hidden="true">D</div>
+            <span>Dani<span class="text-cyan">Codex</span></span>
+          </a>
+          <p class="footer-desc">Diseño web, código, estrategia, marketing, contenido, e-commerce, automatización e IA para negocios que quieren verse más profesionales y captar mejores oportunidades.</p>
+          <div class="footer-social" aria-label="Redes sociales">
+            <a href="https://www.instagram.com/ssdanielmo" target="_blank" aria-label="Instagram de Daniel" rel="noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+            <a href="https://www.linkedin.com/in/kevin-daniel-mart%C3%ADnez-orozco-446427220/" target="_blank" aria-label="LinkedIn profesional de Daniel" rel="noopener noreferrer"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+            <a href="https://wa.me/525662494947" aria-label="Cotizar por WhatsApp" rel="noopener noreferrer" data-whatsapp-plan="Cotización rápida" data-business-type="No especificado"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+          </div>
+          <div class="footer-action-row" aria-label="Acciones de contacto">
+            <a class="social-link-btn" href="https://www.instagram.com/ssdanielmo" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i> Ver Instagram</a>
+            <a class="social-link-btn" href="https://www.linkedin.com/in/kevin-daniel-mart%C3%ADnez-orozco-446427220/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in" aria-hidden="true"></i> Perfil profesional</a>
+            <a class="social-link-btn" href="https://wa.me/525662494947" data-whatsapp-plan="Cotización rápida" data-business-type="No especificado"><i class="fab fa-whatsapp" aria-hidden="true"></i> Cotizar por WhatsApp</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Servicios</h4>
+          <ul>
+            <li><a href="#planes">Landing Pages</a></li>
+            <li><a href="#planes">Web Negocios</a></li>
+            <li><a href="#planes">Sistemas Web</a></li>
+            <li><a href="#konexia">Marketing Digital</a></li>
+            <li><a href="#planes">Proyectos Custom</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#casos">Casos de Éxito</a></li>
+            <li><a href="#proceso">Proceso</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#ai-audit">Diagnóstico IA</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="https://wa.me/525662494947" rel="noopener noreferrer" data-whatsapp-plan="Cotización rápida" data-business-type="No especificado">WhatsApp</a></li>
+            <li><a href="#agenda">Diagnóstico</a></li>
+            <li><a href="https://www.instagram.com/ssdanielmo" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="https://www.linkedin.com/in/kevin-daniel-mart%C3%ADnez-orozco-446427220/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="footerYear"></span> DaniCodex. Todos los derechos reservados.</span>
+        <div style="display:flex;gap:1.5rem">
+          <a href="#agenda">Privacidad</a>
+          <a href="#agenda">Términos</a>
+          <a href="#agenda">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    'use strict';
+    document.documentElement.classList.remove('no-js');
+    document.documentElement.classList.add('js');
+
+    /* --- Configuration --- */
+    const WA_NUMBER = '525662494947'; // WhatsApp number in wa.me format (+52 5662494947)
+    const PARTICLE_COUNT = window.matchMedia && window.matchMedia('(max-width: 640px)').matches ? 54 : 92;
+
+    function buildWhatsAppLink(plan, businessType, extraMessage) {
+      var safePlan = (plan || 'Diagnóstico inicial').trim();
+      var safeType = (businessType || 'No especificado').trim();
+      var baseMessage = 'Hola Daniel, vi tu página de DaniCodex/Konexia y quiero información sobre el plan ' + safePlan + '. Mi negocio es: ' + safeType + '.';
+      var fullMessage = extraMessage ? baseMessage + '\n' + String(extraMessage).trim() : baseMessage;
+      return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(fullMessage);
+    }
+
+    function openWhatsApp(url) {
+      var newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        showToast('Abriendo WhatsApp...');
+        window.location.href = url;
+      }
+    }
+
+    /* --- Scroll Progress Bar --- */
+    const progressBar = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      progressBar.style.width = Math.min(pct, 100) + '%';
+    }, { passive: true });
+
+    /* --- Navbar Scroll State --- */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    /* --- Footer Year --- */
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+    /* --- Toast Utility --- */
+    var _toastTimer = null;
+    function showToast(msg) {
+      var toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(_toastTimer);
+      _toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 3500);
+    }
+
+    /* --- WhatsApp CTA Event Delegation --- */
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-plan], [data-whatsapp-plan]');
+      if (!btn) return;
+      e.preventDefault();
+      var planValue = btn.getAttribute('data-plan') || btn.getAttribute('data-whatsapp-plan') || 'Diagnóstico inicial';
+      var businessType = btn.getAttribute('data-business-type') || 'No especificado';
+      var extraMessage = btn.getAttribute('data-extra-message') || '';
+      setPlan(planValue, false);
+      openWhatsApp(buildWhatsAppLink(planValue, businessType, extraMessage));
+    });
+
+    /* --- Mobile Menu --- */
+    (function () {
+      const hamburger = document.querySelector('.hamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (!hamburger || !mobileMenu) return;
+      hamburger.addEventListener('click', () => {
+        const isOpen = hamburger.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', String(isOpen));
+        mobileMenu.classList.toggle('open', isOpen);
+        mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+      mobileMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          mobileMenu.classList.remove('open');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+          hamburger.focus(); // Return focus to trigger
+        });
+      });
+      // Escape key closes menu
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && hamburger.classList.contains('open')) {
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          mobileMenu.classList.remove('open');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+          hamburger.focus();
+        }
+      });
+      // Basic focus trap inside open menu
+      mobileMenu.addEventListener('keydown', e => {
+        if (e.key !== 'Tab') return;
+        const focusable = Array.from(mobileMenu.querySelectorAll('a, button'));
+        const first = focusable[0];
+        const last  = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+        } else {
+          if (document.activeElement === last)  { e.preventDefault(); first.focus(); }
+        }
+      });
+    })();
+
+    /* --- Typewriter (Hero) --- */
+    (function () {
+      const el = document.getElementById('heroTypewriter');
+      if (!el) return;
+      const phrases = ['Web premium que genera confianza', 'Marketing que capta prospectos', 'Automatización que ahorra tiempo', 'IA aplicada a tu operación'];
+      let pIdx = 0, cIdx = 0, deleting = false;
+      const cursor = document.createElement('span');
+      cursor.className = 'typewriter-cursor';
+      cursor.setAttribute('aria-hidden', 'true');
+      el.after(cursor);
+      function type() {
+        const cur = phrases[pIdx];
+        if (!deleting) {
+          el.textContent = cur.slice(0, ++cIdx);
+          if (cIdx === cur.length) { deleting = true; return setTimeout(type, 2200); }
+          setTimeout(type, 80);
+        } else {
+          el.textContent = cur.slice(0, --cIdx);
+          if (cIdx === 0) { deleting = false; pIdx = (pIdx + 1) % phrases.length; return setTimeout(type, 400); }
+          setTimeout(type, 40);
+        }
+      }
+      type();
+    })();
+
+    /* --- Particle Canvas (Hero) --- */
+    (function () {
+      const canvas = document.getElementById('heroCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return; // Guard: canvas unsupported or context limit reached
+      let W, H, DPR, animId, visible = true;
+      const particles = [];
+
+      function resize() {
+        DPR = Math.min(window.devicePixelRatio || 1, 2);
+        W = canvas.offsetWidth;
+        H = canvas.offsetHeight;
+        canvas.width = Math.floor(W * DPR);
+        canvas.height = Math.floor(H * DPR);
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      }
+      window.addEventListener('resize', resize, { passive: true });
+      resize();
+
+      function Particle() {
+        this.reset = function () {
+          var band = Math.random();
+          this.x = W * (0.08 + Math.random() * 0.84);
+          this.y = H * (0.08 + Math.random() * 0.84);
+          if (band > 0.68) {
+            this.x = W * (0.48 + Math.random() * 0.46);
+            this.y = H * (0.12 + Math.random() * 0.72);
+          }
+          this.vx = (Math.random() - 0.5) * 0.34; this.vy = (Math.random() - 0.5) * 0.34;
+          this.r = Math.random() * 1.7 + 0.65; this.alpha = Math.random() * 0.48 + 0.2;
+          this.hue = Math.random() > 0.62 ? '139,92,246' : (Math.random() > 0.42 ? '99,102,241' : '56,189,248');
+        };
+        this.update = function () {
+          this.x += this.vx; this.y += this.vy;
+          if (this.x < 0 || this.x > W) this.vx *= -1;
+          if (this.y < 0 || this.y > H) this.vy *= -1;
+        };
+        this.draw = function () {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(' + this.hue + ',' + this.alpha + ')';
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = 'rgba(' + this.hue + ',0.55)';
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        };
+        this.reset();
+      }
+      for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+      function connect() {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            var maxDistance = Math.min(150, Math.max(94, W * 0.13));
+            if (d < maxDistance) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = 'rgba(125,211,252,' + (0.18 * (1 - d / maxDistance)) + ')';
+              ctx.lineWidth = 0.85;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      function drawCoreLines() {
+        var layers = [
+          [{x:.16,y:.2},{x:.15,y:.48},{x:.2,y:.76}],
+          [{x:.38,y:.14},{x:.34,y:.36},{x:.4,y:.58},{x:.35,y:.82}],
+          [{x:.62,y:.2},{x:.66,y:.48},{x:.6,y:.75}],
+          [{x:.84,y:.28},{x:.82,y:.62}]
+        ];
+        ctx.save();
+        layers.forEach(function(layer, layerIndex) {
+          if (layerIndex === layers.length - 1) return;
+          layer.forEach(function(a) {
+            layers[layerIndex + 1].forEach(function(b) {
+              ctx.beginPath();
+              ctx.moveTo(a.x * W, a.y * H);
+              ctx.lineTo(b.x * W, b.y * H);
+              ctx.strokeStyle = 'rgba(56,189,248,0.055)';
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            });
+          });
+        });
+        layers.flat().forEach(function(n) {
+          var glow = ctx.createRadialGradient(n.x * W, n.y * H, 0, n.x * W, n.y * H, 22);
+          glow.addColorStop(0, 'rgba(56,189,248,0.32)');
+          glow.addColorStop(1, 'rgba(56,189,248,0)');
+          ctx.fillStyle = glow;
+          ctx.beginPath();
+          ctx.arc(n.x * W, n.y * H, 22, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = 'rgba(226,232,240,0.8)';
+          ctx.beginPath();
+          ctx.arc(n.x * W, n.y * H, 2.2, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        ctx.restore();
+      }
+
+      function loop() {
+        if (visible && W && H) {
+          ctx.clearRect(0, 0, W, H);
+          drawCoreLines();
+          particles.forEach(function (p) { p.update(); p.draw(); });
+          connect();
+        }
+        animId = requestAnimationFrame(loop);
+      }
+      loop();
+
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          visible = entries[0].isIntersecting;
+          // Cancel animation when hero is fully out of view to free resources
+          if (!visible && animId) { cancelAnimationFrame(animId); animId = null; }
+          if (visible && !animId) { loop(); }
+        }, { threshold: 0 }).observe(document.getElementById('hero'));
+      }
+    })();
+
+    /* --- Tilt 3D Effect --- */
+    (function () {
+      if (!window.matchMedia || window.matchMedia('(pointer: coarse)').matches) return;
+      document.querySelectorAll('.tilt-card').forEach(function (card) {
+        card.addEventListener('mousemove', function (e) {
+          var rect = card.getBoundingClientRect();
+          var x = ((e.clientX - rect.left) / rect.width - 0.5) * 14;
+          var y = ((e.clientY - rect.top) / rect.height - 0.5) * 14;
+          card.style.transform = 'perspective(800px) rotateY(' + x + 'deg) rotateX(' + (-y) + 'deg) translateZ(6px)';
+        });
+        card.addEventListener('mouseleave', function () {
+          card.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg) translateZ(0)';
+        });
+      });
+    })();
+
+    /* --- Card Glow (Mouse Tracking) --- */
+    (function () {
+      document.querySelectorAll('.glow-card').forEach(function (card) {
+        card.addEventListener('mousemove', function (e) {
+          var rect = card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+          card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+        });
+      });
+    })();
+
+    /* --- Magnetic Buttons --- */
+    (function () {
+      if (!window.matchMedia || !window.matchMedia('(pointer: fine)').matches) return;
+      document.querySelectorAll('.btn-magnetic').forEach(function (btn) {
+        btn.addEventListener('mousemove', function (e) {
+          var rect = btn.getBoundingClientRect();
+          var dx = (e.clientX - rect.left - rect.width / 2) * 0.22;
+          var dy = (e.clientY - rect.top - rect.height / 2) * 0.22;
+          btn.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+        });
+        btn.addEventListener('mouseleave', function () { btn.style.transform = ''; });
+      });
+    })();
+
+    /* --- Count-up (KPI) --- */
+    (function () {
+      var kpiSection = document.getElementById('kpi');
+      if (!kpiSection || !('IntersectionObserver' in window)) return;
+      var animated = false;
+
+      function animateCount(el) {
+        var target = parseInt(el.dataset.target, 10);
+        var prefix = el.dataset.prefix || '';
+        var suffix = el.dataset.suffix || '';
+        var duration = 1800;
+        var start = performance.now();
+        function step(now) {
+          var t = Math.min((now - start) / duration, 1);
+          var ease = 1 - Math.pow(1 - t, 3);
+          el.textContent = prefix + Math.floor(ease * target) + suffix;
+          if (t < 1) requestAnimationFrame(step);
+          else el.textContent = prefix + target + suffix;
+        }
+        requestAnimationFrame(step);
+      }
+
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting && !animated) {
+          animated = true;
+          kpiSection.querySelectorAll('[data-target]').forEach(function (el) { animateCount(el); });
+        }
+      }, { threshold: 0.3 }).observe(kpiSection);
+    })();
+
+    /* --- Reveal on Scroll --- */
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
+        });
+      }, { threshold: 0.1 });
+      els.forEach(function (el) { obs.observe(el); });
+    })();
+
+    /* --- Process Line Animation --- */
+    (function () {
+      var fill = document.getElementById('processLineFill');
+      var steps = document.getElementById('processSteps');
+      if (!fill || !steps || !('IntersectionObserver' in window)) return;
+      var done = false;
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting && !done) {
+          done = true;
+          setTimeout(function () { fill.style.width = '100%'; }, 400);
+          steps.querySelectorAll('.step-circle').forEach(function (c, i) {
+            setTimeout(function () { c.classList.add('active'); }, 400 + i * 250);
+          });
+        }
+      }, { threshold: 0.3 }).observe(steps);
+    })();
+
+    /* --- FAQ Accordion --- */
+    (function () {
+      document.querySelectorAll('.faq-question').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var expanded = btn.getAttribute('aria-expanded') === 'true';
+          var answerId = btn.getAttribute('aria-controls');
+          var answer = document.getElementById(answerId);
+          if (!answer) return;
+          // Close all others
+          document.querySelectorAll('.faq-question[aria-expanded="true"]').forEach(function (other) {
+            if (other !== btn) {
+              other.setAttribute('aria-expanded', 'false');
+              var otherId = other.getAttribute('aria-controls');
+              var otherAnswer = document.getElementById(otherId);
+              if (otherAnswer) otherAnswer.hidden = true;
+            }
+          });
+          btn.setAttribute('aria-expanded', String(!expanded));
+          answer.hidden = expanded;
+        });
+      });
+    })();
+
+    /* --- AI Audit --- */
+    async function runAudit(query) {
+      var loader = document.getElementById('auditLoader');
+      var result = document.getElementById('auditResult');
+      var container = result.querySelector('.audit-result-content');
+      if (!loader || !result || !container) return;
+
+      loader.hidden = false;
+      result.hidden = true;
+      result.setAttribute('aria-busy', 'true');
+
+      // Client-side simulation — no backend needed
+      await new Promise(function(resolve) { setTimeout(resolve, 1800); });
+      try {
+        var data = generateLocalAudit(query);
+        renderAuditResult(data, container);
+      } catch (err) {
+        renderAuditError(err, container);
+      } finally {
+        loader.hidden = true;
+        result.hidden = false;
+        result.setAttribute('aria-busy', 'false');
+      }
+    }
+
+    function generateLocalAudit(query) {
+      var q = (query || '').toLowerCase();
+      var isUrl = /^https?:\/\/[\w.-]+\.[a-z]{2,}(\/|$)/i.test(q);
+      var safeQuery = (query || '').replace(/[<>&"']/g, '').slice(0, 150).trim();
+      var analisis = isUrl
+        ? 'Hemos escaneado la estructura de tu sitio y detectamos oportunidades críticas de mejora: velocidad de carga, optimización mobile y claridad en las llamadas a la acción. El 68 % de los visitantes abandona un sitio si no carga en menos de 3 segundos o no comunica su propuesta de valor de inmediato.'
+        : 'Tu negocio "' + safeQuery + '" tiene un alto potencial digital sin explotar. Los negocios en tu sector que invierten en presencia web profesional reportan entre 2× y 5× más consultas por mes. La clave: diseño de alta conversión, SEO local bien ejecutado y contacto directo vía WhatsApp.';
+      var arquitectura = 'Una web efectiva para tu caso necesita: (1) carga en menos de 2.5 s — cada segundo extra reduce conversiones un 7 %; (2) diseño mobile-first, donde llega más del 75 % del tráfico en México; (3) hero claro con propuesta de valor en 5 palabras; (4) botón de WhatsApp para contacto inmediato; (5) SEO local con Google Business optimizado; (6) prueba social con reseñas y casos de éxito para generar confianza.';
+      var plan = 'Agenda una sesión de diagnóstico gratuita de 30 minutos para analizar tu situación real. Elaboramos una propuesta personalizada con arquitectura, tiempos y presupuesto exacto. Desarrollo de 3 a 25 días según el plan elegido. Incluye soporte post-entrega y hasta 3 rondas de revisiones sin costo adicional. Aprovecha la oferta de lanzamiento con 25 % OFF vigente este mes — cupos limitados.';
+      return { analisis: analisis, arquitectura: arquitectura, plan: plan };
+    }
+
+    function renderAuditResult(data, container) {
+      container.textContent = '';
+      var fields = [
+        { key: 'analisis',      label: 'Análisis',       icon: 'fas fa-search'  },
+        { key: 'arquitectura',  label: 'Arquitectura',   icon: 'fas fa-sitemap' },
+        { key: 'plan',          label: 'Plan de Acción', icon: 'fas fa-rocket'  }
+      ];
+      var hasContent = false;
+      fields.forEach(function (f) {
+        if (!data[f.key]) return;
+        var rawText = String(data[f.key]).slice(0, 1500); // guard against oversized responses
+        hasContent = true;
+        var block = document.createElement('div');
+        block.className = 'audit-block';
+        var title = document.createElement('h4');
+        var icon = document.createElement('i');
+        icon.className = f.icon;
+        icon.setAttribute('aria-hidden', 'true');
+        title.appendChild(icon);
+        title.appendChild(document.createTextNode(' ' + f.label));
+        var text = document.createElement('p');
+        text.textContent = rawText; // SAFE: never innerHTML with raw AI output
+        block.appendChild(title);
+        block.appendChild(text);
+        container.appendChild(block);
+      });
+      if (!hasContent) renderAuditError(new Error('No data'), container);
+    }
+
+    function renderAuditError(err, container) {
+      container.textContent = '';
+      var msg = document.createElement('p');
+      msg.className = 'audit-error';
+      msg.textContent = 'No se pudo conectar con el motor de análisis. Intenta de nuevo o contáctanos directamente por WhatsApp.';
+      container.appendChild(msg);
+    }
+
+    document.getElementById('auditForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var query = document.getElementById('auditUrl').value.trim();
+      if (query) runAudit(query);
+    });
+
+    /* --- setPlan() --- */
+    function setPlan(planValue, scrollToForm) {
+      if (scrollToForm === undefined) scrollToForm = true;
+      var planSelect = document.getElementById('plan');
+      if (!planSelect) return;
+      var match = Array.from(planSelect.options).find(function (o) { return o.value === planValue; });
+      if (!match && /^Konexia/.test(planValue || '')) {
+        planValue = 'Marketing Konexia';
+        match = Array.from(planSelect.options).find(function (o) { return o.value === planValue; });
+      }
+      if (!match && /Personalizado|Cotizaci/.test(planValue || '')) {
+        planValue = 'No sé quiero diagnóstico';
+        match = Array.from(planSelect.options).find(function (o) { return o.value === planValue; });
+      }
+      if (match) {
+        planSelect.value = planValue;
+        planSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      if (scrollToForm) {
+        var agendaSection = document.getElementById('agenda');
+        if (agendaSection) {
+          var top = agendaSection.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+      }
+    }
+
+    /* --- WhatsApp Form --- */
+    document.getElementById('bookingForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var p = (document.getElementById('plan').value || '').trim();
+      var t = (document.getElementById('businessType').value || '').trim();
+      var b = (document.getElementById('negocio').value || '').trim();
+      var needs = (document.getElementById('needs').value || '').trim();
+
+      if (!p || !t) {
+        alert('Por favor selecciona el plan de interés y el tipo de negocio antes de enviar.');
+        return;
+      }
+
+      var msg = `Hola Daniel, quiero un diagnóstico para mi negocio.
+Plan de interés: ${p}
+Tipo de negocio: ${t}
+Nombre del negocio: ${b || 'No especificado'}
+Necesito mejorar: ${needs || 'No especificado'}
+
+Vi tu página y quiero saber cómo DaniCodex/Konexia puede ayudarme.`;
+      var waUrl = `https://wa.me/${WA_NUMBER}?text=` + encodeURIComponent(msg);
+      openWhatsApp(waUrl);
+    });
+
+    /* --- GSAP + ScrollTrigger --- */
+    window.addEventListener('load', function () {
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+      var mm = gsap.matchMedia();
+      mm.add('(prefers-reduced-motion: no-preference)', function () {
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('.hero-content', { y: 40, opacity: 0, duration: 1.1, ease: 'power3.out', delay: 0.2 });
+
+        gsap.utils.toArray('h2').forEach(function (h) {
+          gsap.from(h, {
+            scrollTrigger: { trigger: h, start: 'top 85%', toggleActions: 'play none none none' },
+            y: 25, opacity: 0, duration: 0.8, ease: 'power2.out'
+          });
+        });
+
+        var lineFill = document.getElementById('processLineFill');
+        if (lineFill && window.innerWidth > 768) {
+          ScrollTrigger.create({
+            trigger: '#processSteps', start: 'top 70%',
+            onEnter: function () { gsap.to(lineFill, { width: '100%', duration: 1.6, ease: 'power2.inOut' }); }
+          });
+        }
+
+        gsap.utils.toArray('.glass-card').forEach(function (card, i) {
+          gsap.from(card, {
+            scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' },
+            y: 30, opacity: 0, duration: 0.7, delay: (i % 4) * 0.08, ease: 'power2.out'
+          });
+        });
+
+        gsap.from('.kpi-item', {
+          scrollTrigger: { trigger: '#kpi', start: 'top 80%' },
+          y: 20, opacity: 0, stagger: 0.1, duration: 0.6, ease: 'power2.out'
+        });
+      });
+    });
+
+  </script>
+</body>
+</html>
