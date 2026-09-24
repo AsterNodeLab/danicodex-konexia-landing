@@ -81,6 +81,16 @@
     .btn .arrow { transition: transform .5s var(--ease); }
     .btn:hover .arrow { transform: translateX(4px); }
 
+
+    /* ---------- PROMO BLACK FRIDAY ---------- */
+    .promo-bar { display: flex; justify-content: center; align-items: center; gap: 12px; padding: 7px 16px; font-size: .78rem; background: #000; color: var(--text); border-bottom: 1px solid var(--line); text-align: center; flex-wrap: wrap; }
+    .promo-bar b { font-weight: 600; letter-spacing: .02em; }
+    .promo-bar .off { font-family: var(--mono); font-size: .7rem; padding: 2px 8px; border-radius: 999px; background: var(--blue); color: #fff; }
+    .promo-bar a { color: var(--blue-2); }
+    .p-row b s { display: block; text-align: right; font-size: .8rem; font-weight: 400; color: var(--muted); letter-spacing: 0; text-decoration-thickness: 1px; }
+    .bf-tag { display: inline-block; margin-left: 8px; font-family: var(--mono); font-size: .62rem; padding: 2px 8px; border-radius: 999px; background: #000; color: #fff; border: 1px solid var(--line-strong); letter-spacing: .08em; vertical-align: middle; }
+    .svc-item .from s { color: var(--muted); margin-right: 6px; }
+
     /* ---------- HERO ---------- */
     #hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 0 80px; overflow: hidden;
       background: radial-gradient(ellipse 80% 60% at 50% 40%, #0B2452 0%, var(--navy-1) 45%, var(--navy-0) 100%); }
@@ -202,6 +212,7 @@
       .steps { grid-template-columns: 1fr 1fr; }
       .voice { gap: 40px; }
     }
+    @media (max-width: 600px) { .promo-long { display: none; } }
     @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -212,6 +223,7 @@
 <body>
 
 <nav>
+  <div class="promo-bar"><span class="off">50% OFF</span><b>Black Friday</b><span class="promo-long">Todos los desarrollos e implementaciones a mitad de precio <span id="promo-until"></span>.</span><a href="#precios">Ver precios →</a></div>
   <div class="wrap">
     <a href="#hero" class="logo">DaniCodex <span>/ Konexia</span></a>
     <div class="nav-links">
@@ -335,7 +347,7 @@
 <section id="precios">
   <div class="wrap">
     <div class="head rv">
-      <span class="eyebrow">Precios en MXN</span>
+      <span class="eyebrow">Precios en MXN <span class="bf-tag">BLACK FRIDAY −50%</span></span>
       <h2>Precios claros.</h2>
       <p>Tres formas de pagar: solo el desarrollo, el paquete con dominio y hosting, o una mensualidad todo incluido sin anticipo.</p>
     </div>
@@ -528,7 +540,7 @@
       <p class="fine">Los minutos de voz, la telefonía y las conversaciones de WhatsApp los cobra cada proveedor según uso y se facturan a costo. Como referencia, un minuto de voz con IA cuesta entre $3 y $8 MXN.</p>
     </div>
 
-    <p class="fine">Precios más IVA. Pago único: 50% al iniciar y 50% al entregar. Planes mensuales de webs con permanencia mínima de 12 meses. ¿Presupuesto ajustado? Empezamos con lo esencial y crecemos por fases. El código y el dominio quedan a tu nombre.</p>
+    <p class="fine">Promoción Black Friday: 50% de descuento en desarrollo, implementación y paquetes con dominio y hosting del primer año, contratados durante la vigencia. Las mensualidades tienen 50% de descuento los primeros 3 meses. El precio tachado es el precio regular. No aplica a dominios, hosting ni consumo de terceros. Precios más IVA. Pago único: 50% al iniciar y 50% al entregar. Planes mensuales de webs con permanencia mínima de 12 meses. ¿Presupuesto ajustado? Empezamos con lo esencial y crecemos por fases. El código y el dominio quedan a tu nombre.</p>
   </div>
 </section>
 
@@ -727,6 +739,31 @@
       btn.style.transform = `translate(${dx * 0.18}px, ${dy * 0.3}px)`;
     });
   });
+
+
+  /* ---------- Promo Black Friday: 50% sobre el precio regular ---------- */
+  const PROMO = { off: 0.5, until: '2026-11-30T23:59:59-06:00' };
+  if (new Date() <= new Date(PROMO.until)) {
+    const fmt = n => '$' + Math.round(n).toLocaleString('es-MX');
+    const cut = n => Math.round(n * (1 - PROMO.off) / 50) * 50; // redondeo a $50
+    document.querySelectorAll('.p-row b').forEach(b => {
+      const txt = b.firstChild && b.firstChild.nodeType === 3 ? b.firstChild.textContent : '';
+      const m = txt.match(/^(\+?)\$([\d,]+)$/);
+      if (!m || b.querySelector('small')) return; // mensualidades: sin descuento permanente (ver nota)
+      const n = +m[2].replace(/,/g, '');
+      b.firstChild.textContent = m[1] + fmt(cut(n));
+      const s = document.createElement('s'); s.textContent = m[1] + fmt(n);
+      b.prepend(s);
+    });
+    document.querySelectorAll('.svc-item .from').forEach(el => {
+      el.innerHTML = el.textContent.replace(/\$([\d,]+)/g, (all, v) => {
+        const n = +v.replace(/,/g, ''); return el.textContent.includes('/ año') ? all : `<s>${all}</s>${fmt(cut(n))}`;
+      });
+    });
+    document.getElementById('promo-until').textContent = 'hasta el ' + new Date(PROMO.until).toLocaleDateString('es-MX', { day: 'numeric', month: 'long', timeZone: 'America/Mexico_City' });
+  } else {
+    document.querySelectorAll('.promo-bar, .bf-tag').forEach(el => el.remove());
+  }
 
   /* ---------- Selector de precios con píldora deslizante ---------- */
   const seg = document.getElementById('seg'), pill = seg.querySelector('.pill');
